@@ -4,9 +4,29 @@
  */
 
 import java.util.ArrayList;
-
+import com.thoughtworks.xstream.*;
+import java.io.*;
 public class Demo {
+    static String xml;
 
+    public static void serialize(Building a){
+	XStream xstream = new XStream();
+	xml = xstream.toXML(a);
+	//System.out.println(xml);
+	try{
+	    PrintWriter out = new PrintWriter(new FileWriter("Building1.xml"));
+	    out.println(xml);
+	    out.close();
+	}catch (Exception e){
+	    System.err.println("There has been an error");
+	}
+    }
+    public static void deserialize(Building newDemo){
+	XStream xstream = new XStream();
+	System.out.println("deserializing");
+	newDemo = (Building)xstream.fromXML(xml);
+	//System.out.println("The name is " + newbuild.getName());
+    }
     public static void main(String[] args){
 	int numRooms = 1;
 	Building demo = new Building(numRooms);
@@ -20,6 +40,13 @@ public class Demo {
 	demo.setZoneData(0,9,2,(float)0.068);
 	demo.setZoneData(0,10,0,4);
 	demo.setZoneData(0,11,0,2000);
+	demo.calc();
+	demo.output();
+
+	serialize(demo);
+
+	deserialize(demo);
+
 	demo.calc();
 	demo.output();
     }
