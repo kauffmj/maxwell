@@ -95,7 +95,7 @@ public class Building {
 	return zone.get(i).getData(j,k); }
 
     public int numZones() {
-	return zones.size(); }
+	return zone.size(); }
 
     // calculate all zones and update the totals from that
     public void calc() {
