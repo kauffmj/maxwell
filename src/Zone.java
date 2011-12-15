@@ -11,14 +11,21 @@
  *   String title = a descriptive name of the particular instance of Zone
  *   float data[28][4] = a 2D array used to store all of the Zone's values
  *                       (see ZoneData.pdf for detailed information)
+ *   int dropdowns[8] = an array denoting which item is selected in each of the
+ *                      big-8 dropdown boxes: NetWallCM, CeilingCM, FloorCM,
+ *                                            InfiltrationCM, WindowsHM, 
+ *                                            DoorsHM, FloorHM, MarginMultiplier
  *
  * Methods:
  *   void setTitle(String) = set's the Zone's title to a passed String
  *   String getTitle() = return's the String of the Zone's title
  *   void setData(int i, int j, float value) = stores value in data[i][j] 
  *   float getData(int i, int j) = returns the value stored in data[i][j]
+ *   void setDropdowns(int[] values) = save new choices in dropdown selections
+ *   int[] getDropdowns() = return the list of currently selected dropdowns
  *   void calc(Region reg) = runs the calculations based upon currently stored
  *                           values and the passed Region
+ *   void calcPrep() = a helper method to calc() which copies some values around
  *   void output() = quickly print contents of title and data[][] to terminal 
  */
 
@@ -29,6 +36,8 @@ public class Zone {
     // the values of this instance of Zone, as laid out in the spreadsheet
     // see further documentation, or this.calc(),  for more details
     private float[][] data = new float[28][4];
+    // The positions of selected items of the big-8 dropdown boxes
+    private int[] dropdowns = new int[8];
 
     // defining a new instance of the class, given a label
     public Zone(String name) {
@@ -51,6 +60,16 @@ public class Zone {
     // method to get the value of any location in the data[][]
     public float getData(int i, int j) {
 	return data[i][j];
+    }
+
+    // method to set the values of dropdowns[]
+    public void setDropdowns(int[] values) {
+	for (int i=0; i<dropdowns.length; i++)
+	    dropdowns[i] = values[i];
+    }
+    // method to get the dropdowns[] array
+    public int[] getDropdowns() {
+	return dropdowns;
     }
 
     /* calcPrep copies primary input values into their respective duplicate
