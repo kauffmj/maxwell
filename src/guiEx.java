@@ -21,6 +21,8 @@ public class guiEx
 	private JPanel westP = new JPanel(new GridLayout(0,4, 10, 10));
 	private JPanel eastP = new JPanel(new GridLayout(0,4, 10, 10));
 	private JPanel calcPanel = new JPanel();
+	private JPanel topP = new JPanel(new GridLayout(0,6,10,10));
+	private JPanel notes = new JPanel();
 
 	// Create buttons
 	private JButton calc = new JButton("Calculate");
@@ -214,11 +216,40 @@ public class guiEx
 	private JTextField ceiling1 = new JTextField(null,7);
 */
     // Create the  Menu
-    private JMenuBar mb = new JMenuBar(); // Menubar
-    private JMenu mnuFile = new JMenu("File"); // File Entry on Menu bar
-    private JMenuItem mnuItemQuit = new JMenuItem("Quit"); // Quit sub item
-    private JMenu mnuHelp = new JMenu("Help"); // Help Menu entry
-    private JMenuItem mnuItemAbout = new JMenuItem("About"); // About Entry
+	private JMenuBar mb = new JMenuBar(); // Menubar
+	private JMenu mnuFile = new JMenu("File"); // File Entry on Menu bar
+	private JMenuItem mnuItemQuit = new JMenuItem("Quit"); // Quit sub item
+	private JMenu mnuHelp = new JMenu("About"); // Help Menu entry
+	private JMenuItem mnuItemAbout = new JMenuItem("About Maxwell"); // About Entry
+	private JMenuItem mnuItemNew = new JMenuItem("New");
+	private JMenuItem mnuItemOpen = new JMenuItem("Open");
+	private JMenuItem mnuItemSave = new JMenuItem("Save");
+	private JMenuItem mnuItemPrint = new JMenuItem("Print to PDF");
+	private JMenuItem mnuItemDocumentation = new JMenuItem("Documentation");
+
+
+
+
+	//create extra stuff
+	private JLabel jobName = new JLabel("Job Name");
+	private JLabel date = new JLabel("Date");
+	private JLabel customer = new JLabel("Customer");
+	private JLabel jobNumber = new JLabel("Job Number");
+	private JLabel region = new JLabel("Region");
+	private JLabel address = new JLabel("Address");
+
+	//textfields
+	private JTextField jobNameT = new JTextField(null, 10);
+	private JTextField dateT = new JTextField(null , 10);
+	private JTextField customerT = new JTextField(null , 10);
+	private JTextField jobNumberT = new JTextField(null , 10);
+	private JTextField addressT = new JTextField(null , 10);
+
+	//combo
+	private JComboBox region1 = new JComboBox(factors);
+
+	
+
 
     /** Constructor for the GUI */
     public guiEx(){
@@ -227,13 +258,22 @@ public class guiEx
         
 	//set layout
 	GridBagLayout gridbag = new GridBagLayout();
+	GridBagConstraints t = new GridBagConstraints();
+	GridBagConstraints e = new GridBagConstraints();
+	GridBagConstraints w = new GridBagConstraints();
 	GridBagConstraints c = new GridBagConstraints();
 	f.setLayout(gridbag);
 		//Build Menus
+	mnuFile.add(mnuItemNew);
+	mnuFile.add(mnuItemOpen);
+	mnuFile.add(mnuItemSave);
+	mnuFile.add(mnuItemPrint);
         mnuFile.add(mnuItemQuit);  // Create Quit line
+	mnuHelp.add(mnuItemDocumentation);
         mnuHelp.add(mnuItemAbout); // Create About line
         mb.add(mnuFile);        // Add Menu items to form
         mb.add(mnuHelp);
+	
 
 	//Disable buttons
 	gain1.setEnabled(false);
@@ -326,8 +366,12 @@ public class guiEx
 	people2A.setBorder(b);
 	totalLatentA.setBorder(b);
 	totalGainA.setBorder(b);
-
-
+	jobName.setBorder(b);
+	date.setBorder(b);
+	customer.setBorder(b);
+	jobNumber.setBorder(b);
+	region.setBorder(b);
+	address.setBorder(b);
 
         // Setup Main Frame
 
@@ -501,16 +545,45 @@ public class guiEx
 	
 	eastP.setSize(100,100);
 	calcPanel.add(calc);
+	
+	topP.add(jobName);
+	topP.add(jobNameT);
+	topP.add(date);
+	topP.add(dateT);
+	topP.add(customer);
+	topP.add(customerT);
+	topP.add(jobNumber);
+	topP.add(jobNumberT);
+	topP.add(region);
+	topP.add(region1);
+	topP.add(address);
+	topP.add(addressT);
 
-	c.insets = new Insets(10,10,10,10);  //top padding
-	c.gridwidth=2;
-	c.gridy=0;
-	gridbag.setConstraints(westP, c);
-	gridbag.setConstraints(eastP, c);
-	gridbag.setConstraints(f, c);
+	e.insets = new Insets(10,10,10,10);  //top padding
+	e.gridwidth=2;
+	e.gridy=1;
+	e.gridx = 2;
+	e.anchor = GridBagConstraints.EAST;
+	w.insets = new Insets(10,10,10,10);  //top padding
+	w.gridwidth=2;
+	w.gridy=1;
+	w.gridx =0;
+	w.anchor = GridBagConstraints.WEST;
+	gridbag.setConstraints(westP, w);
+	gridbag.setConstraints(eastP, e);
+	gridbag.setConstraints(f, e);
+	t.anchor = GridBagConstraints.NORTH;
+	t.gridy = 0;
+	//t.gridwidth=2;
+	//t.weightx = 0.0;
+	//t.gridx = 0;
+	t.fill = GridBagConstraints.BOTH;
+	gridbag.setConstraints(topP,t);
 	f.getContentPane().add(westP);
 	f.getContentPane().add(eastP);
-	c.gridy=1;
+	f.getContentPane().add(topP);
+	c.gridy=2;
+	c.fill = GridBagConstraints.HORIZONTAL;
 	gridbag.setConstraints(calcPanel, c);
 	f.getContentPane().add(calcPanel);
 	//topP.add(example);
