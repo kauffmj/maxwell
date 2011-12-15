@@ -53,8 +53,26 @@ public class Zone {
 	return data[i][j];
     }
 
+    /* calcPrep copies primary input values into their respective duplicate
+     * places.  See ZoneData.pdf for more details, as this method gets all the 
+     * blue values from the yellow input values */
+    public void calcPrep() {
+	data[15][0] = data[9][0];  // copy infiltration area
+	data[15][1] = data[9][1];  // copy infiltration height
+	data[16][0] = data[10][0]; // copy number of people
+	data[19][0] = data[0][0];  // copy gross wall area
+	// calculate total window area from N/S/EW/SkyLight Areas
+	data[20][0] = data[1][0] + data[2][0] + data[3][0] + data[4][0];
+	data[21][0] = data[5][0];  // copy door area
+	data[23][0] = data[7][0];  // copy ceiling area
+	data[24][0] = data[8][0];  // copy floor area 
+	data[25][0] = data[9][0];  // copy infiltration area
+	data[25][1] = data[9][1];  // copy infiltration height
+  }
+
     public void calc(Region reg) {
 	// START LEFT-HAND-SIDE OF SPREADSHEET
+	calcPrep();  // copy the inputs around to their duplicate values
 	// calculate Gain of northWindow through doors
 	for (int i=1; i<6; i++)
 	    data[i][3] = data[i][0]*data[i][1];
@@ -95,6 +113,7 @@ public class Zone {
 	data[18][3] = data[18][0] + data[18][1];
 	// END LEFT-HAND-SIDE OF SPREADSHEET
 	// BEGIN RIGHT-HAND-SIDE OF SPREADSHEET
+	data[22][0] = data[6][0];  // copy net wall area from left hand side
 	// calculate losses of windows through floor
 	for (int i=20; i<25; i++)
 	    data[i][3] = data[i][0] * data[i][1];
