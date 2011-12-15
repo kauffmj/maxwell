@@ -36,6 +36,8 @@
  *                                   (see ZoneData.pdf for detailed information)
  *   float getZoneData(int i,j,k) = return thefloat from data[j][k] in zone[i]
  *                                   (see ZoneData.pdf for detailed information)
+ *   void setZoneDropdowns(int i, int[] val) = save dropdown choices to Zone i
+ *   int[] getZoneDropdowns(int i) = return array of dropdown choices of Zone i
  *   int numZones() = return an int of how many zones the Building has
  */
 
@@ -93,6 +95,10 @@ public class Building {
 	zone.get(i).setData(j,k,value); }
     public float getZoneData(int i, int j, int k) {
 	return zone.get(i).getData(j,k); }
+    public void setZoneDropdowns(int i, int[] values) {
+	zone.get(i).setDropdowns(values); }
+    public int[] getZoneDropdowns(int i) {
+	return zone.get(i).getDropdowns(); }
 
     public int numZones() {
 	return zone.size(); }

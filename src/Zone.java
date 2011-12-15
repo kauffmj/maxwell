@@ -64,8 +64,8 @@ public class Zone {
 
     // method to set the values of dropdowns[]
     public void setDropdowns(int[] values) {
-	for (int=0; i<dropdowns.length; i++)
-	    dropdowns[i] = value[i];
+	for (int i=0; i<dropdowns.length; i++)
+	    dropdowns[i] = values[i];
     }
     // method to get the dropdowns[] array
     public int[] getDropdowns() {
