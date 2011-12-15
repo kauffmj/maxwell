@@ -1,0 +1,179 @@
+<!-- Maxwell Ant Build System -->
+
+<!--
+ This file is part of Maxwell.
+
+ Maxwell is free software: you can redistribute it and/or modify it under
+ the terms of the GNU Lesser Public License as published by the Free
+ Software Foundation, either version 2 of the License, or (at your option)
+ any later version.
+
+ Maxwell is distributed in the hope that it will be useful, but WITHOUT
+ WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ FITNESS FOR A PARTICULAR PURPOSE.  Se the GNU Lesser Public License for
+ more details.
+
+ You should have received a copy of the GNU Lesser Public License along
+ with Maxwell.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<project>
+  
+  <!-- SETUP VARIABLES AND PATHS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!-- The directory of the library jars. -->
+  <property name="lib.dir" value="lib"/>
+  <!-- Directories and classpaths for Cobertura's various tasks. -->
+  <property name="cobertura.dir" value="tools/cobertura-1.9.4.1" />
+
+  <!-- Classpath setting needed to run Cobertura. -->
+  <path id="cobertura.classpath">
+    <fileset dir="${cobertura.dir}">
+      <include name="cobertura.jar" />
+      <include name="lib/*.jar" />
+    </fileset>
+  </path>
+  <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+
+  <!-- The classpath for building the system. -->
+  <path id="build.classpath">
+    <fileset dir="lib" includes="*.jar"/>
+  </path>
+  
+  <!-- TARGETS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!-- CLEANING TASK - "ant clean" -->
+  <target name="clean">
+    <delete dir="build"/>
+    <delete file="Maxwell.jar"/>
+  </target>
+
+  <!-- COMPILING TASK - "ant compile" -->  
+  <target name="compile">
+    <mkdir dir="build/classes/"/>
+    <javac srcdir="src/" destdir="build/classes/" includeantruntime="false" debug="true" debuglevel="vars,lines,source">
+      <classpath refid="build.classpath"/>
+    </javac>
+  </target>
+
+  <!-- JAR TASK - "ant jar" -->
+  <target name="jar">
+    <jar destfile="Maxwell.jar" basedir="build/classes"/>
+  </target>
+  
+  <!-- RUN TASK - "ant test" (note: this runs all algorithm tests -->
+  <target name="test">
+    <java classname="tests.AllTests">
+        <arg value="${testSuiteSubset}"/>
+        <classpath>
+	        <pathelement location="build/classes"/>
+	        <pathelement location="lib/junit-4.9.jar"/>
+	        <pathelement location="lib/hamcrest-all-1.3.0RC2.jar"/>
+	        <pathelement location="."/>
+        </classpath>
+    </java>
+  </target>
+  
+  
+  <!-- COBERTURA'S TASKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+  
+  <!-- Cobertura cleanup - "ant cobertura-clean" -->
+  <target name="cobertura-clean">
+    <delete file="cobertura.ser"/>
+    <delete dir="build/instrumented"/>
+    <delete dir="reports/cobertura"/>
+  </target>
+  
+  <!-- Cobertura instrumenting - "ant cobertura-instrument" -->
+  <target name="cobertura-instrument">
+    <delete file="cobertura.ser"/>
+    <mkdir dir="build/instrumented"/>
+    <cobertura-instrument todir="./build/instrumented">
+      <ignore regex="org.apache.log4j.*" />
+      <fileset dir="./build/classes">
+	<!-- include name="**/*.class" /-->
+	<!-- exclude name="**/*Test*.class" /-->
+      </fileset>
+    </cobertura-instrument>
+  </target>
+  
+  <!-- Cobertura running - "ant cobertura-run" -->
+  <target name="cobertura-run">
+    <java fork="yes" classname="tests.AllTests">
+      <arg value="-cp ./tools/cobertura-1.9.4.1/cobertura.jar:./build/instrumented:./build/classes:./lib/junit-4.9.jar:./lib/hamcrest-all-1.3.0RC2.jar:."/>
+      <arg value="-Dnet.sourceforge.cobertura.datafile=cobertura.ser"/>
+      <arg value="BubbleSortTest"/>
+      <arg value="EQSortAlgorithmTest"/>
+      <arg value="CountingSortAlgorithmTest"/>
+      <arg value="InsertionSortAlgorithmTest"/>
+      <arg value="QuickSortTest"/>
+      <arg value="GnomeSortAlgorithmTest"/>
+      <arg value="MergeSortTest"/>
+      <arg value="RadixSortAlgorithmTest"/>
+      <arg value="ShellSortTest"/>
+      <classpath>
+	<pathelement location="tools/cobertura-1.9.4.1/cobertura.jar"/>
+	<pathelement location="build/instrumented"/>
+	<pathelement location="build/classes"/>
+	<pathelement location="lib/junit-4.9.jar"/>
+	<pathelement location="lib/hamcrest-all-1.3.0RC2.jar"/>
+	<pathelement location="."/>
+      </classpath>
+    </java>
+  </target>
+  
+  <!-- Cobertura running (just BubbleSort) - "ant cobertura-run-bubble" -->
+  <target name="cobertura-run-bubble">
+    <java fork="yes" classname="tests.AllTests">
+      <arg value="-cp ./tools/cobertura-1.9.4.1/cobertura.jar:./build/instrumented:./build/classes:./lib/junit-4.9.jar:./lib/hamcrest-all-1.3.0RC2.jar:."/>
+      <arg value="-Dnet.sourceforge.cobertura.datafile=cobertura.ser"/>
+      <arg value="BubbleSortTest"/>
+      <classpath>
+	<pathelement location="tools/cobertura-1.9.4.1/cobertura.jar"/>
+	<pathelement location="build/instrumented"/>
+	<pathelement location="build/classes"/>
+	<pathelement location="lib/junit-4.9.jar"/>
+	<pathelement location="lib/hamcrest-all-1.3.0RC2.jar"/>
+	<pathelement location="."/>
+      </classpath>
+    </java>
+  </target>
+  
+  <!-- Cobertura report generation - "ant cobertura-report" -->  
+  <target name="cobertura-report">
+    <cobertura-report format="html" destdir="reports/cobertura">
+      <fileset dir="src">
+	<include name="**/*.java" />
+      </fileset>
+
+    </cobertura-report>
+  </target>
+
+  <!-- Cobertura report display - "ant cobertura-display" -->
+  <target name="cobertura-display">
+    <exec dir="." executable="firefox">
+      <arg value="reports/cobertura/index.html"/>
+    </exec>
+  </target>
+  
+  <!-- Run all Cobertura tasks sequentially - "ant cobertura" -->
+  <target name="cobertura" depends="cobertura-clean,cobertura-instrument,cobertura-run,cobertura-report"/>
+
+  <!-- Run all Cobertura (BubbleSort) tasks sequentially - "ant cobertura-mini" -->
+  <target name="cobertura-mini" depends="cobertura-clean,cobertura-instrument,cobertura-run-bubble,cobertura-report,cobertura-display"/>
+  
+  <!-- CLOC'S TASKS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+ 
+  <!-- CLOC TASK - "ant cloc" -->
+  <target name="cloc">
+    <exec dir="." executable="perl">
+      <arg value="tools/cloc-1.53.pl"/>
+      <arg value="src/algorithms"/>
+    </exec>
+    <exec dir="." executable="perl">
+      <arg value="tools/cloc-1.53.pl"/>
+      <arg value="src/tests"/>
+    </exec>
+  </target>
+
+</project>

@@ -1,0 +1,24 @@
+#! /bin/bash
+
+# This bash script will run CLOC on all tests and source code in the src/algorithms and the src/tests repositories.
+# To use this script, type "tools/cloc_script.txt" in the terminal window and press ENTER.
+#  *NOTE:  YOU MUST BE IN THE MAIN DIRECTORY FOR THIS SCRIPT TO RUN PROPERLY
+#
+# This file is part of Razza.
+#
+# Razza is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser Public License as published by the Free
+# Software Foundation, either version 2 of the License, or (at your option)
+#* any later version.
+#*
+# Razza is distributed in the hope that it will be useful, but WITHOUT
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  Se the GNU Lesser Public License for
+# more details.
+#
+# You should have received a copy of the GNU Lesser Public License along
+# with Razza.  If not, see <http://www.gnu.org/licenses/>.
+
+perl tools/cloc-1.53.pl src/algorithms
+
+perl tools/cloc-1.53.pl src/tests

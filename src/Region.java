@@ -1,0 +1,140 @@
+/** 
+ * Maxwell's 'Region' Class
+ *
+ * This class is used to store and return all of the options and coefficients
+ * utilized in Building and Zone calculations.
+ *
+ * Methods:
+ *
+ * String getItem(int,int)
+ * float getValue(int,int)
+ * int getLength(int)
+ * String getCategory(int)
+ */
+
+import java.util.ArrayList;
+
+public class Region {
+
+    private int regionNumber;
+    private String regionName;
+    private Object[][] wallCM; // Wall Cooling Multipliers
+    private Object[][] ceilCM; // Ceiling Cooling Multipliers
+    private Object[][] florCM; // Floor Cooling Multipliers
+    private Object[][] windCM; // Window Cooling Multipliers
+    private Object[][] infnCM; // Infiltration Cooling Multipliers
+    private Object[][] laHICM; // Latent Heat Infiltration Multipliers
+
+
+    public Region(int i) {
+	regionNumber = i;
+	if (i == 0) { // If region is NorthWest PA
+	    regionName = "Northwest Pennsylvania";
+
+	    wallCM = new Object[4][2];
+	    wallCM[0][0]="No Insulation";  wallCM[0][1]=new Float(4.0);
+	    wallCM[1][0]="2 Inches";       wallCM[1][1]=new Float(2.0);
+	    wallCM[2][0]="3 Inches";       wallCM[2][1]=new Float(1.5);
+	    wallCM[3][0]="6 Inches";       wallCM[3][1]=new Float(1.0);
+	    
+	    ceilCM = new Object[4][2];
+	    ceilCM[0][0]="No Insulation";  ceilCM[0][1]=new Float(11.0);
+	    ceilCM[1][0]="3 Inches";       ceilCM[1][1]=new Float(3.2);
+	    ceilCM[2][0]="6 Inches";       ceilCM[2][1]=new Float(2.1);
+	    ceilCM[3][0]="10 Inches";      ceilCM[3][1]=new Float(1.3);
+	    
+	    florCM = new Object[3][2];
+	    florCM[0][0]="No Insulation";  florCM[0][1]=new Float(4.0);
+	    florCM[1][0]="3 Inches";       florCM[1][1]=new Float(0.8);
+	    florCM[2][0]="6 Inches";       florCM[2][1]=new Float(0.5);
+	    
+	    windCM = new Object[5][2];
+	    windCM[0][0]="North";          windCM[0][1]=new Float(15.0);
+	    windCM[1][0]="South";          windCM[1][1]=new Float(25.0);
+	    windCM[2][0]="East/West";      windCM[2][1]=new Float(45.0);
+	    windCM[3][0]="Skylight";       windCM[3][1]=new Float(139.0);
+	    windCM[4][0]="Doors";          windCM[4][1]=new Float(11.0);
+	    
+	    infnCM = new Object[3][2];
+	    infnCM[0][0]="1 Air Change";   infnCM[0][1]=new Float(0.275);
+	    infnCM[1][0]="1/2 Air Change"; infnCM[1][1]=new Float(0.137);
+	    infnCM[2][0]="1/4 Air Change"; infnCM[2][1]=new Float(0.068);
+	    
+	    laHICM = new Object[3][2];
+	    laHICM[0][0]="1 Air Change";   laHICM[0][1]=new Float(0.26);
+	    laHICM[1][0]="1/2 Air Change"; laHICM[1][1]=new Float(0.13);
+	    laHICM[2][0]="1/4 Air Change"; laHICM[2][1]=new Float(0.065);
+	}
+    }
+    
+    public String getItem(int i, int j) {
+	Object item;
+	if (i == 0)
+	    item = wallCM[j][0];
+	else if (i == 1)
+	    item = ceilCM[j][0];
+	else if (i == 2)
+	    item = florCM[j][0];
+	else if (i == 3)
+	    item = windCM[j][0];
+	else if (i == 4)
+	    item = infnCM[j][0];
+	else if (i == 5)
+	    item = laHICM[j][0];
+	else
+	    return "Error";
+	return (String)item;
+    }
+    public float getValue(int i, int j) {
+	Object value;
+	if (i == 0)
+	    value = wallCM[j][1];
+	else if (i == 1)
+	    value = ceilCM[j][1];
+	else if (i == 2)
+	    value = florCM[j][1];
+	else if (i == 3)
+	    value = windCM[j][1];
+	else if (i == 4)
+	    value = infnCM[j][1];
+	else if (i == 5)
+	    value = laHICM[j][1];
+	else
+	    return (float)(-1);
+	Float temp = (Float)value;
+	return temp.floatValue();
+    }
+    public int getLength(int i) {
+	if (i==2 || i==4 || i==5)
+	    return (int)3;
+	else if (i==0 || i==1)
+	    return (int)4;
+	else if (i==3)
+	    return (int)5;
+	else
+	    return (int)0;
+    }
+    public String getCategory(int i) {
+	if (i == 0)
+	    return "Wall CM";
+	else if (i == 1)
+	    return "Ceiling CM";
+	else if (i == 2)
+	    return "Floor CM";
+	else if (i == 3)
+	    return "Window CM";
+	else if (i == 4)
+	    return "Infiltration CM";
+	else if (i == 5)
+	    return "Latent Infiltration CM";
+	else
+	    return "Error";
+    }
+
+    public String name() {
+	return regionName;
+    }
+    public int number() {
+	return regionNumber;
+    }
+}
