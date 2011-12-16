@@ -9,7 +9,7 @@
  * String getItem(int i,int j) = return the name of multiplier i's jth option 
  * float getValue(int,String) = return a multiplier based upon which multiplier
  *                              and the text of the desired option.
- * float getValue(inti ,int j) = return the value of multiplier i's jth option
+ * float getValue(int i,int j) = return the value of multiplier i's jth option
  * int getLength(int i) = returns the number of options in multiplier i
  * String getCategory(int i) = returns the title of multiplier i
  */
@@ -26,6 +26,11 @@ public class Region {
     private Object[][] windCM; // Window Cooling Multipliers
     private Object[][] infnCM; // Infiltration Cooling Multipliers
     private Object[][] laHICM; // Latent Heat Infiltration Multipliers
+    private Object[][] windHM;
+    private Object[][] ceilHM;
+    private Object[][] florHM;
+    private Object[][] wallHM;
+    private Object[][] infnHM;
 
 
     public Region(int i) {
@@ -91,7 +96,10 @@ public class Region {
 	    wallHM[2][0]="3 Inches";       wallHM[2][1]=new Float(5.0);
 	    wallHM[3][0]="6 Inches";       wallHM[3][1]=new Float(4.0);
 
-
+	    infnHM = new Object[3][2];
+	    infnHM[0][0]="1 Air Change";   infnHM[0][1]=new Float(1.26);
+	    infnHM[1][0]="1/2 Air Change"; infnHM[1][1]=new Float(0.63);
+	    infnHM[2][0]="1/4 Air Change"; infnHM[2][1]=new Float(0.32);
 
 	}
     }
