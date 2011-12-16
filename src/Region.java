@@ -66,6 +66,33 @@ public class Region {
 	    laHICM[0][0]="1 Air Change";   laHICM[0][1]=new Float(0.26);
 	    laHICM[1][0]="1/2 Air Change"; laHICM[1][1]=new Float(0.13);
 	    laHICM[2][0]="1/4 Air Change"; laHICM[2][1]=new Float(0.065);
+
+	    windHM = new Object[4][2];
+	    windHM[0][0]="Single";         windHM[0][1]=new Float(80.0);
+	    windHM[1][0]="Insulated";      windHM[1][1]=new Float(48.0);
+	    windHM[2][0]="Storm";          windHM[2][1]=new Float(40.0);
+	    windHM[3][0]="Triple";         windHM[3][1]=new Float(23.0);
+
+	    ceilHM = new Object[4][2];
+	    ceilHM[0][0]="No Insulation";  ceilHM[0][1]=new Float(21.0);
+	    ceilHM[1][0]="3 Inches";       ceilHM[1][1]=new Float(6.0);
+	    ceilHM[2][0]="6 Inches";       ceilHM[2][1]=new Float(4.0);
+	    ceilHM[3][0]="10 inches";      ceilHM[3][1]=new Float(2.0);
+
+	    florHM = new Object[4][2];
+	    florHM[0][0]="Crawl Space";    florHM[0][1]=new Float(21.0);
+	    florHM[1][0]="Crawl - Ins.";   florHM[1][1]=new Float(5.0);
+	    florHM[2][0]="Base - No Ins."; florHM[2][1]=new Float(4.0);
+	    florHM[3][0]="Bsmt. - 3 Inches"; florHM[3][1]=new Float(2.0);
+
+	    wallHM = new Object[4][2];
+	    wallHM[0][0]="No Insulation";  wallHM[0][1]=new Float(18.0);
+	    wallHM[1][0]="2 Inches";       wallHM[1][1]=new Float(7.0);
+	    wallHM[2][0]="3 Inches";       wallHM[2][1]=new Float(5.0);
+	    wallHM[3][0]="6 Inches";       wallHM[3][1]=new Float(4.0);
+
+
+
 	}
     }
 

@@ -533,11 +533,16 @@ public class Maxwell extends javax.swing.JFrame {
 				   Integer.parseInt(jTextField15.getText()));
 	activeBuilding.setZoneData(activeZone,11,0, // appliance gain
 				   Integer.parseInt(jTextField16.getText()));
+	// multipliers of north/south/eastwest/skylight/doors based on region
 	activeBuilding.setZoneData(activeZone,1,1,region.getValue(3,0));
 	activeBuilding.setZoneData(activeZone,2,1,region.getValue(3,1));
 	activeBuilding.setZoneData(activeZone,3,1,region.getValue(3,2));
 	activeBuilding.setZoneData(activeZone,4,1,region.getValue(3,3));
 	activeBuilding.setZoneData(activeZone,5,1,region.getValue(3,4));
+	// windowCM (right side)
+	activeBuilding.setZoneData(activeZone,20,1,
+				   region.getValue(9,jComboBox3.getSelectedIndex()));
+
 	
 	//activeBuilding.setZoneData(activeZone,5,1,
 	//	    region.getValue(3,jComboBox3.getSelectedIndex()));
