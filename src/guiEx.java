@@ -13,6 +13,10 @@ import java.awt.Color;
 */
 public class guiEx
 {
+
+
+	//declare colors 
+
 	// Initialize all swing objects.
 	private JFrame f = new JFrame("Gui Example"); //create Frame
 	//f.setLayout(new GridBagLayout());
@@ -21,7 +25,7 @@ public class guiEx
 	private JPanel westP = new JPanel(new GridLayout(0,4, 10, 10));
 	private JPanel eastP = new JPanel(new GridLayout(0,4, 10, 10));
 	private JPanel calcPanel = new JPanel();
-	private JPanel topP = new JPanel(new GridLayout(0,6,10,10));
+	private JPanel topP = new JPanel(new GridLayout(0,12,10,10));
 	private JPanel notes = new JPanel();
 
 	// Create buttons
@@ -30,8 +34,6 @@ public class guiEx
 	private JButton gain1 = new JButton("");
 	private JButton hm2 = new JButton("");
 	private JButton gain2 = new JButton("");
-
-
 
 	//Create the border for the jlabels to distinguish them 
 	private Border b=  LineBorder.createGrayLineBorder();
@@ -97,6 +99,11 @@ public class guiEx
 	private JLabel tGain = new JLabel("Total Gain");
 	private JLabel eBlanktg1 = new JLabel("");
 	private JLabel eBlanktg2 = new JLabel("");
+	private JLabel first= new JLabel("");
+	private JLabel second= new JLabel("");	
+	private JLabel third= new JLabel("");
+	private JLabel forth= new JLabel("");
+	private JLabel notes2 = new JLabel("Notes:");
 	
 
 	
@@ -243,13 +250,16 @@ public class guiEx
 	private JTextField dateT = new JTextField(null , 10);
 	private JTextField customerT = new JTextField(null , 10);
 	private JTextField jobNumberT = new JTextField(null , 10);
-	private JTextField addressT = new JTextField(null , 10);
+	///private JTextField addressT = new JTextField(null , 10);
 
 	//combo
 	private JComboBox region1 = new JComboBox(factors);
 
-	
-
+	//textarea
+	private JTextArea notes1 = new JTextArea();
+	JScrollPane scrollPane = new JScrollPane(notes1);
+	private JTextArea addressT = new JTextArea(10,3);
+	JScrollPane scrollPane1 = new JScrollPane(addressT);
 
     /** Constructor for the GUI */
     public guiEx(){
@@ -262,6 +272,7 @@ public class guiEx
 	GridBagConstraints e = new GridBagConstraints();
 	GridBagConstraints w = new GridBagConstraints();
 	GridBagConstraints c = new GridBagConstraints();
+	GridBagConstraints n = new GridBagConstraints();
 	f.setLayout(gridbag);
 		//Build Menus
 	mnuFile.add(mnuItemNew);
@@ -330,7 +341,7 @@ public class guiEx
 	totalC.setBorder(b);
 	eCeiling.setBorder(b);
 	eFloor.setBorder(b);
-	eInf.setBorder(b);
+	eInf.setBorder(b);	
 	eBlanki1.setBorder(b);
 	eBlanki2.setBorder(b);
 	eBlanki3.setBorder(b);
@@ -372,7 +383,14 @@ public class guiEx
 	jobNumber.setBorder(b);
 	region.setBorder(b);
 	address.setBorder(b);
-
+	first.setBorder(b);
+	second.setBorder(b);
+	third.setBorder(b);
+	forth.setBorder(b);
+	westP.setBorder(b);
+	eastP.setBorder(b);
+	topP.setBorder(b);
+	notes1.setBorder(b);
         // Setup Main Frame
 
 	westP.add(blank);
@@ -387,13 +405,13 @@ public class guiEx
 
 	westP.add(gWall);
 	westP.add(gWallA);
-	westP.add(hm1);
-	westP.add(gain1);
+	westP.add(first);
+	westP.add(second);
 	
 	eastP.add(gWall1);
 	eastP.add(gWallA2);
-	eastP.add(hm2);
-	eastP.add(gain2);
+	eastP.add(third);
+	eastP.add(forth);
 
 	westP.add(nWall);
 	westP.add(nWall1);
@@ -544,6 +562,7 @@ public class guiEx
 	westP.add(totalGainA);
 	
 	eastP.setSize(100,100);
+	notes.setSize(100,100);
 	calcPanel.add(calc);
 	
 	topP.add(jobName);
@@ -557,35 +576,86 @@ public class guiEx
 	topP.add(region);
 	topP.add(region1);
 	topP.add(address);
+
+	addressT.setLineWrap(true);
 	topP.add(addressT);
 
+	//int pos = 6;
+    	//notes1.insert("  ", pos);
+
+	//notes1.setColumns(7);
+	//notes1.setRows(10);
+	notes1.setColumns(20);
+        notes1.setRows(5);
+	notes1.setLineWrap(true);
+        scrollPane.setViewportView(notes1);
+
+	notes.setBorder(b);
+	notes.add(notes2,BorderLayout.NORTH);
+	notes.add(notes1, BorderLayout.SOUTH);
+	e.fill = GridBagConstraints.BOTH;
 	e.insets = new Insets(10,10,10,10);  //top padding
-	e.gridwidth=2;
+	e.gridwidth=3;
+	e.gridheight = 1;
 	e.gridy=1;
-	e.gridx = 2;
-	e.anchor = GridBagConstraints.EAST;
+	e.gridx = 3;
+	e.weightx=.5;
+	e.anchor = GridBagConstraints.NORTHEAST;
+
+
 	w.insets = new Insets(10,10,10,10);  //top padding
-	w.gridwidth=2;
+	w.gridwidth=3;
+	w.gridheight = 3;
 	w.gridy=1;
 	w.gridx =0;
-	w.anchor = GridBagConstraints.WEST;
+	//w.weightx = .5;
+	//w.anchor = GridBagConstraints.NORTHWEST;
+	w.fill = GridBagConstraints.BOTH;
+
 	gridbag.setConstraints(westP, w);
 	gridbag.setConstraints(eastP, e);
 	gridbag.setConstraints(f, e);
-	t.anchor = GridBagConstraints.NORTH;
+
+	//t.anchor = GridBagConstraints.NORTH;
 	t.gridy = 0;
-	//t.gridwidth=2;
-	//t.weightx = 0.0;
+	t.gridwidth=0;
+	//t.weightx = 1.0;
 	//t.gridx = 0;
 	t.fill = GridBagConstraints.BOTH;
+
+
 	gridbag.setConstraints(topP,t);
+		
+	//topP.setBackground(Color.WHITE);
+	//topP.setForeground(Color.WHITE);	
+	westP.setBackground(Color.ORANGE);
+	eastP.setBackground(Color.cyan);
+	eastP.setForeground(Color.WHITE);
+
+	c.gridy=4;
+	c.fill = GridBagConstraints.BOTH;
+	c.gridwidth = 3;
+	c.gridx = 2;
+	c.anchor = GridBagConstraints.SOUTH;
+	gridbag.setConstraints(calcPanel, c);
+	
+	n.fill = GridBagConstraints.BOTH;
+	n.insets = new Insets(10,10,10,10);
+	n.gridwidth = 3;
+	n.gridheight = 1;
+	n.gridy = 3;
+	n.gridx = 3;
+	//n.anchor = GridBagConstraints.SOUTHEAST;
+	//n.weighty = 1;
+	//n.weightx = 1;
+
+	gridbag.setConstraints(notes , n);
+	
 	f.getContentPane().add(westP);
 	f.getContentPane().add(eastP);
 	f.getContentPane().add(topP);
-	c.gridy=2;
-	c.fill = GridBagConstraints.HORIZONTAL;
-	gridbag.setConstraints(calcPanel, c);
 	f.getContentPane().add(calcPanel);
+	f.getContentPane().add(notes);
 	//topP.add(example);
 
 		/*topP.add(topP, BorderLayout.NORTH);
