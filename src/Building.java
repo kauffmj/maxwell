@@ -126,7 +126,7 @@ public class Building {
 	System.out.println();
 	for (int i=0; i<zone.size(); i++) {
 	    System.out.println("Zone " + i + ": " + zone.get(i).getTitle());
-	    zone.get(i).bigfileoutput();
+	    zone.get(i).output();
 	    System.out.println();
 	}
     }

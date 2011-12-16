@@ -118,11 +118,22 @@ public class Region {
 	    item = infnCM[j][0];
 	else if (i == 5)
 	    item = laHICM[j][0];
+	else if (i == 6)
+	    item = windHM[j][0];
+	else if (i == 7)
+	    item = ceilHM[j][0];
+	else if (i == 8)
+	    item = florHM[j][0];
+	else if (i == 9)
+	    item = wallHM[j][0];
+	else if (i == 10)
+	    item = infnHM[j][0];
 	else
 	    return "Error";
 	return (String)item;
     }
 
+    /* INCOMPLETE BY A LOT */
     public float getValue(int i, String s) {
 	Object value;
 	if (i == 0) // wallCM
@@ -146,11 +157,23 @@ public class Region {
 	    value = infnCM[j][1];
 	else if (i == 5)
 	    value = laHICM[j][1];
+	else if (i == 6)
+	    value = windHM[j][1];
+	else if (i == 7)
+	    value = ceilHM[j][1];
+	else if (i == 8)
+	    value = florHM[j][1];
+	else if (i == 9)
+	    value = wallHM[j][1];
+	else if (i == 10)
+	    value = infnHM[j][1];
 	else
 	    return (float)(-1);
 	Float temp = (Float)value;
 	return temp.floatValue();
     }
+
+    /* INCOMPLETE BY A LOT AND WRONG APPROACH */
     public int getLength(int i) {
 	if (i==2 || i==4 || i==5)
 	    return (int)3;
@@ -161,6 +184,7 @@ public class Region {
 	else
 	    return (int)0;
     }
+    /* INCOMPLETE BY A LOT */
     public String getCategory(int i) {
 	if (i == 0)
 	    return "Wall CM";

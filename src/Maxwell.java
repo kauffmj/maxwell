@@ -219,7 +219,7 @@ public class Maxwell extends javax.swing.JFrame {
 
         jLabel32.setText("Total Gain:");
 
-        jButton5.setText("Calculate All");
+        jButton5.setText("Clear Zone");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
@@ -541,12 +541,39 @@ public class Maxwell extends javax.swing.JFrame {
 	activeBuilding.setZoneData(activeZone,5,1,region.getValue(3,4));
 	// windowCM (right side)
 	activeBuilding.setZoneData(activeZone,20,1,
-				   region.getValue(9,jComboBox3.getSelectedIndex()));
-
-	
-	//activeBuilding.setZoneData(activeZone,5,1,
-	//	    region.getValue(3,jComboBox3.getSelectedIndex()));
-	
+			      region.getValue(6,jComboBox3.getSelectedIndex()));
+	// doorCM (right side)
+	activeBuilding.setZoneData(activeZone,21,1,
+			      region.getValue(6,jComboBox4.getSelectedIndex()));
+	// wallHM and wallCM
+	activeBuilding.setZoneData(activeZone,6,1,
+			      region.getValue(0,jComboBox5.getSelectedIndex()));
+	activeBuilding.setZoneData(activeZone,22,1,
+			      region.getValue(9,jComboBox5.getSelectedIndex()));
+	// ceilHM and ceilCM
+	activeBuilding.setZoneData(activeZone,7,1,
+			      region.getValue(1,jComboBox6.getSelectedIndex()));
+	activeBuilding.setZoneData(activeZone,23,1,
+			      region.getValue(7,jComboBox6.getSelectedIndex()));
+	// florHM and florCM
+	activeBuilding.setZoneData(activeZone,8,1,
+			      region.getValue(2,jComboBox7.getSelectedIndex()));
+	activeBuilding.setZoneData(activeZone,24,1,
+			      region.getValue(8,jComboBox8.getSelectedIndex()));
+	// infnHM and laHIHM and infnCM
+	activeBuilding.setZoneData(activeZone,9,2,
+			      region.getValue(4,jComboBox9.getSelectedIndex()));
+	activeBuilding.setZoneData(activeZone,15,2,
+			      region.getValue(5,jComboBox9.getSelectedIndex()));
+	activeBuilding.setZoneData(activeZone,25,2,
+			     region.getValue(10,jComboBox9.getSelectedIndex()));
+	// safetyMargin multiplier
+	if (jComboBox10.getSelectedIndex() == 1)
+	    activeBuilding.setZoneData(activeZone,27,1,(float)1.25);
+	else if (jComboBox10.getSelectedIndex() == 2)
+	    activeBuilding.setZoneData(activeZone,27,1,(float)1.5);
+	else
+	    activeBuilding.setZoneData(activeZone,27,1,(float)1.0);
     }	
 
 
@@ -557,6 +584,7 @@ public class Maxwell extends javax.swing.JFrame {
 	setZoneData(activeZone);
 	activeBuilding.calc();
 	jTextField17.setText("" + activeBuilding.getZoneData(activeZone,18,3));
+	jTextField18.setText("" + activeBuilding.getZoneData(activeZone,27,3));
 	activeBuilding.output();
     }   //GEN-LAST:event_jButton4ActionPerformed
     
@@ -577,6 +605,15 @@ public class Maxwell extends javax.swing.JFrame {
 	jTextField14.setText("0");
 	jTextField15.setText("0");
 	jTextField16.setText("0");        
+	jComboBox3.setSelectedIndex(0);
+	jComboBox4.setSelectedIndex(0);
+	jComboBox5.setSelectedIndex(0);
+	jComboBox6.setSelectedIndex(0);
+	jComboBox7.setSelectedIndex(0);
+	jComboBox8.setSelectedIndex(0);
+	jComboBox9.setSelectedIndex(0);
+	jComboBox10.setSelectedIndex(0);
+
     }   //GEN-LAST:event_jButton5ActionPerformed
 
     /**
