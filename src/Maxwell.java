@@ -9,7 +9,6 @@
  * Created on Dec 15, 2011, 9:28:31 PM
  */
 
-package maxwell;
 
 /**
  *
