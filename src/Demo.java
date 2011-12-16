@@ -49,7 +49,7 @@ public class Demo {
 
 	demo.calc();
 
-	//demo.fileoutput();
-	demo.output();
+	demo.fileoutput();
+	//demo.output();
     }
 }
