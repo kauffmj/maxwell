@@ -502,13 +502,77 @@ public class Maxwell extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    /* SEND BUILDING DESCRIPTIONS TO BUILDING OBJECT */
+    private void setBuildingData() {
+	
+    }
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    /* SEND INPUT DATA TO ZONE OBJECT */
+    private void setZoneData(int i) {
+        activeBuilding.setZoneData(activeZone,0,0, // gross wall area
+				   Integer.parseInt(jTextField5.getText()));
+	activeBuilding.setZoneData(activeZone,1,0, // north window area
+				   Integer.parseInt(jTextField6.getText()));
+	activeBuilding.setZoneData(activeZone,2,0, // south window area
+				   Integer.parseInt(jTextField7.getText()));
+	activeBuilding.setZoneData(activeZone,3,0, // eastwest window area
+				   Integer.parseInt(jTextField8.getText()));
+	activeBuilding.setZoneData(activeZone,4,0, // skylight area
+				   Integer.parseInt(jTextField9.getText()));
+	activeBuilding.setZoneData(activeZone,5,0, // door area
+				   Integer.parseInt(jTextField10.getText()));
+	activeBuilding.setZoneData(activeZone,7,0, // ceiling area
+				   Integer.parseInt(jTextField11.getText()));
+	activeBuilding.setZoneData(activeZone,8,0, // floor area
+				   Integer.parseInt(jTextField12.getText()));
+	activeBuilding.setZoneData(activeZone,9,0, // infiltration area
+				   Integer.parseInt(jTextField13.getText()));
+	activeBuilding.setZoneData(activeZone,9,1, // infiltration height
+				   Integer.parseInt(jTextField14.getText()));
+	activeBuilding.setZoneData(activeZone,10,0, // people
+				   Integer.parseInt(jTextField15.getText()));
+	activeBuilding.setZoneData(activeZone,11,0, // appliance gain
+				   Integer.parseInt(jTextField16.getText()));
+	activeBuilding.setZoneData(activeZone,1,1,region.getValue(3,0));
+	activeBuilding.setZoneData(activeZone,2,1,region.getValue(3,1));
+	activeBuilding.setZoneData(activeZone,3,1,region.getValue(3,2));
+	activeBuilding.setZoneData(activeZone,4,1,region.getValue(3,3));
+	activeBuilding.setZoneData(activeZone,5,1,region.getValue(3,4));
+	
+	//activeBuilding.setZoneData(activeZone,5,1,
+	//	    region.getValue(3,jComboBox3.getSelectedIndex()));
+	
+    }	
+
+
+    /* CALCULATE BUTTON */
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+	//GEN-FIRST:event_jButton4ActionPerformed
+	region = activeBuilding.getRegion();
+	setZoneData(activeZone);
+	activeBuilding.calc();
+	jTextField17.setText("" + activeBuilding.getZoneData(activeZone,18,3));
+	activeBuilding.output();
+    }   //GEN-LAST:event_jButton4ActionPerformed
+    
+
+
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
+	//GEN-FIRST:event_jButton5ActionPerformed
+	jTextField5.setText("0");
+	jTextField6.setText("0");
+	jTextField7.setText("0");
+	jTextField8.setText("0");
+	jTextField9.setText("0");
+	jTextField10.setText("0");
+	jTextField11.setText("0");
+	jTextField12.setText("0");
+	jTextField13.setText("0");
+	jTextField14.setText("0");
+	jTextField15.setText("0");
+	jTextField16.setText("0");        
+    }   //GEN-LAST:event_jButton5ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -519,7 +583,14 @@ public class Maxwell extends javax.swing.JFrame {
                 new Maxwell().setVisible(true);
             }
         });
+	activeBuilding =  new Building();
+	activeZone = 0;
+	System.out.println("Testing!");
     }
+
+    private static Region region;
+    private static Building activeBuilding;
+    private static int activeZone;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

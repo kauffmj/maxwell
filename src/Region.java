@@ -6,10 +6,12 @@
  *
  * Methods:
  *
- * String getItem(int,int)
- * float getValue(int,int)
- * int getLength(int)
- * String getCategory(int)
+ * String getItem(int i,int j) = return the name of multiplier i's jth option 
+ * float getValue(int,String) = return a multiplier based upon which multiplier
+ *                              and the text of the desired option.
+ * float getValue(inti ,int j) = return the value of multiplier i's jth option
+ * int getLength(int i) = returns the number of options in multiplier i
+ * String getCategory(int i) = returns the title of multiplier i
  */
 
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class Region {
 	    laHICM[2][0]="1/4 Air Change"; laHICM[2][1]=new Float(0.065);
 	}
     }
-    
+
     public String getItem(int i, int j) {
 	Object item;
 	if (i == 0)
@@ -85,6 +87,16 @@ public class Region {
 	    return "Error";
 	return (String)item;
     }
+
+    public float getValue(int i, String s) {
+	Object value;
+	if (i == 0) // wallCM
+	    for (int x=0; x<wallCM.length; x++)
+		if (s.equals((String)wallCM[x][0]))
+		    return ((Float)wallCM[x][1]).floatValue();
+	return (float)(-1.0);
+    }
+
     public float getValue(int i, int j) {
 	Object value;
 	if (i == 0)
