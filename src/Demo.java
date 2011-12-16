@@ -48,6 +48,8 @@ public class Demo {
 	deserialize(demo);
 
 	demo.calc();
+
+	//demo.fileoutput();
 	demo.output();
     }
 }

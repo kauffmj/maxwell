@@ -28,6 +28,7 @@
  *   void calcPrep() = a helper method to calc() which copies some values around
  *   void output() = quickly print contents of title and data[][] to terminal 
  */
+import java.io.*;
 
 public class Zone {
 
@@ -150,10 +151,147 @@ public class Zone {
 
     public void output() {
 	for (int i=0; i<data.length; i++) {
-	    System.out.print(i + " = [" + data[i][0]);
+	if(i == 0)
+	    System.out.print("Gross Wall Area\t\t" + " = [" + data[i][0]);
+	else if(i == 1)
+	    System.out.print("North Window Area\t" + " = [" + data[i][0]);
+	else if(i == 2)
+	    System.out.print("South Window Area\t" + " = [" + data[i][0]);
+	else if(i == 3)
+	    System.out.print("East/West Window Area\t" + " = [" + data[i][0]);
+	else if(i == 4)
+	    System.out.print("Skylight Area\t\t" + " = [" + data[i][0]);
+	else if(i == 5)
+	    System.out.print("Doors Area\t\t" + " = [" + data[i][0]);
+	else if(i == 6)
+	    System.out.print("Net Wall Area\t\t" + " = [" + data[i][0]);
+	else if(i == 7)
+	    System.out.print("Ceiling Area\t\t" + " = [" + data[i][0]);
+	else if(i == 8)
+	    System.out.print("Floor Area\t\t" + " = [" + data[i][0]);
+	else if(i == 9)
+	    System.out.print("Infiltration\t\t" + " = [" + data[i][0]);
+	else if(i == 10)
+	    System.out.print("Number of People\t" + " = [" + data[i][0]);
+	else if(i == 11)
+	    System.out.print("Appliance Gain\t\t" + " = [" + data[i][0]);
+	else if(i == 12)
+	    System.out.print("BLANK\t\t\t" + " = [" + data[i][0]);
+	else if(i == 13)
+	    System.out.print("Heat Gain Subtotal\t" + " = [" + data[i][0]);
+	else if(i == 14)
+	    System.out.print("BLANK\t\t\t" + " = [" + data[i][0]);
+	else if(i == 15)
+	    System.out.print("Latent Infiltration\t" + " = [" + data[i][0]);
+	else if(i == 16)
+	    System.out.print("Number of People\t" + " = [" + data[i][0]);
+	else if(i == 17)
+	    System.out.print("BLANK\t\t\t" + " = [" + data[i][0]);
+	else if(i == 18)
+	    System.out.print("Heat Gain Subtotal\t" + " = [" + data[i][0]);
+	else if(i == 19)
+	    System.out.print("Gross Wall Area\t\t" + " = [" + data[i][0]);
+	else if(i == 20)
+	    System.out.print("All Windows Area\t" + " = [" + data[i][0]);
+	else if(i == 21)
+	    System.out.print("Doors Area\t\t" + " = [" + data[i][0]);
+	else if(i == 22)
+	    System.out.print("Net Wall Area\t\t" + " = [" + data[i][0]);
+	else if(i == 23)
+	    System.out.print("Ceiling Area\t\t" + " = [" + data[i][0]);
+	else if(i == 24)
+	    System.out.print("Floor Area\t\t" + " = [" + data[i][0]);
+	else if(i == 25)
+	    System.out.print("Infiltration Area\t" + " = [" + data[i][0]);
+	else if(i == 26)
+	    System.out.print("BLANK\t\t\t" + " = [" + data[i][0]);
+	else
+	    System.out.print("Heat Loss Subtotal\t" + " = [" + data[i][0]);
 	    for (int j=1; j<data[i].length; j++)
 		System.out.print(", " + data[i][j]);
 	    System.out.println("]");
 	}
+    }
+
+ public void bigfileoutput() {
+	for (int i=0; i<data.length; i++) {
+	if(i == 0)
+	    System.out.println("Gross Wall:\t\t" + "\n\t\tArea = " + data[i][0]);
+	else if(i == 1)
+	    System.out.println("North Window:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tNorth Window Gain = " + data[i][3]);
+	else if(i == 2)
+	    System.out.println("South Window:\t" + " = [" + data[i][0]);
+	else if(i == 3)
+	    System.out.println("East/West Window Area\t" + " = [" + data[i][0]);
+	else if(i == 4)
+	    System.out.println("Skylight Area\t\t" + " = [" + data[i][0]);
+	else if(i == 5)
+	    System.out.println("Doors Area\t\t" + " = [" + data[i][0]);
+	else if(i == 6)
+	    System.out.println("Net Wall Area\t\t" + " = [" + data[i][0]);
+	else if(i == 7)
+	    System.out.println("Ceiling Area\t\t" + " = [" + data[i][0]);
+	else if(i == 8)
+	    System.out.println("Floor Area\t\t" + " = [" + data[i][0]);
+	else if(i == 9)
+	    System.out.println("Infiltration\t\t" + " = [" + data[i][0]);
+	else if(i == 10)
+	    System.out.println("Number of People\t" + " = [" + data[i][0]);
+	else if(i == 11)
+	    System.out.println("Appliance Gain\t\t" + " = [" + data[i][0]);
+	else if(i == 12)
+	    System.out.println("BLANK\t\t\t" + " = [" + data[i][0]);
+	else if(i == 13)
+	    System.out.println("Heat Gain Subtotal\t" + " = [" + data[i][0]);
+	else if(i == 14)
+	    System.out.println("BLANK\t\t\t" + " = [" + data[i][0]);
+	else if(i == 15)
+	    System.out.println("Latent Infiltration\t" + " = [" + data[i][0]);
+	else if(i == 16)
+	    System.out.println("Number of People\t" + " = [" + data[i][0]);
+	else if(i == 17)
+	    System.out.println("BLANK\t\t\t" + " = [" + data[i][0]);
+	else if(i == 18)
+	    System.out.println("Heat Gain Subtotal\t" + " = [" + data[i][0]);
+	else if(i == 19)
+	    System.out.println("Gross Wall Area\t\t" + " = [" + data[i][0]);
+	else if(i == 20)
+	    System.out.println("All Windows Area\t" + " = [" + data[i][0]);
+	else if(i == 21)
+	    System.out.println("Doors Area\t\t" + " = [" + data[i][0]);
+	else if(i == 22)
+	    System.out.println("Net Wall Area\t\t" + " = [" + data[i][0]);
+	else if(i == 23)
+	    System.out.println("Ceiling Area\t\t" + " = [" + data[i][0]);
+	else if(i == 24)
+	    System.out.println("Floor Area\t\t" + " = [" + data[i][0]);
+	else if(i == 25)
+	    System.out.println("Infiltration Area\t" + " = [" + data[i][0]);
+	else if(i == 26)
+	    System.out.println("BLANK\t\t\t" + " = [" + data[i][0]);
+	else
+	    System.out.println("Heat Loss Subtotal\t" + " = [" + data[i][0]);
+	    //for (int j=1; j<data[i].length; j++)
+		//System.out.print(", " + data[i][j]);
+	    //System.out.println("]");
+	}
+    }
+
+    public void fileoutput1() {
+	try{
+	//System.out.println("Into fileoutput()");
+	PrintWriter pout = new PrintWriter(new FileWriter("Building.rtf",true));
+	for (int i=0; i<data.length; i++) {
+	//System.out.println("Into first for loop");
+	pout.print("hello from zone");
+	    pout.print(i + " = [" + data[i][0]);
+	    for (int j=1; j<data[i].length; j++){
+		//System.out.println("Into second for loop");
+		pout.print(", " + data[i][j]);}
+	    pout.println("]");
+	}
+	}catch(Exception e){
+	    System.err.println("There has been an error");
+}
     }
 }
