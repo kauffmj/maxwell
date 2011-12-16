@@ -160,7 +160,7 @@ try{
 		for (int i=0; i<zone.size(); i++) {
 	    		out.println("Zone " + i + ": " + zone.get(i).getTitle());
 			System.out.println("Right before fileoutput()");
-	   		zone.get(i).fileoutput1();
+	   		zone.get(i).nomultsoutput();
 	    		out.println();
 			out.print("Hello from building");
 		}
