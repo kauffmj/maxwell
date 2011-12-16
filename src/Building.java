@@ -42,6 +42,7 @@
  */
 
 import java.util.ArrayList;
+import java.io.*;
 
 public class Building {
     
@@ -125,9 +126,33 @@ public class Building {
 	System.out.println();
 	for (int i=0; i<zone.size(); i++) {
 	    System.out.println("Zone " + i + ": " + zone.get(i).getTitle());
-	    zone.get(i).output();
+	    zone.get(i).bigfileoutput();
 	    System.out.println();
 	}
     }
+    public void fileoutput(){
+try{
+	    PrintWriter out = new PrintWriter(new FileWriter("Building.rtf"));
+	    out.println("Job Name:  " + jobName);
+		out.println("Job Number:  " + jobNumber);
+		out.println("Job Date:  " + jobDate);
+		out.println("Region:  "+getRegionNumber()+" - "+getRegionName());
+		out.println("Customer:  " + customer);
+		out.println("Address:  " + address);
+		out.println("Notes:\n" + notes);
+		out.println();
+		for (int i=0; i<zone.size(); i++) {
+	    		out.println("Zone " + i + ": " + zone.get(i).getTitle());
+			System.out.println("Right before fileoutput()");
+	   		zone.get(i).fileoutput1();
+	    		out.println();
+			out.print("Hello from building");
+		}
+    
+	    out.close();
+	}catch (Exception e){
+	    System.err.println("There has been an error");
+	}
+}
 
 }
