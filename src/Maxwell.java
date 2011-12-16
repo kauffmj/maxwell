@@ -215,7 +215,7 @@ public class Maxwell extends javax.swing.JFrame {
 
         jLabel30.setText("Zone Loss:");
 
-        jLabel31.setText("Total Gain:");
+        jLabel31.setText("Total Loss:");
 
         jLabel32.setText("Total Gain:");
 
@@ -504,7 +504,13 @@ public class Maxwell extends javax.swing.JFrame {
 
     /* SEND BUILDING DESCRIPTIONS TO BUILDING OBJECT */
     private void setBuildingData() {
-	
+	activeBuilding.setBuildingData(jTextField1.getText(),
+				       jTextField2.getText(),
+				       jTextField3.getText(),
+				       jTextField4.getText(),
+				       jTextField5.getText(),
+				       jTextField6.getText());
+
     }
 
     /* SEND INPUT DATA TO ZONE OBJECT */
@@ -580,17 +586,21 @@ public class Maxwell extends javax.swing.JFrame {
     /* CALCULATE BUTTON */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton4ActionPerformed
+	setBuildingData();
 	region = activeBuilding.getRegion();
 	setZoneData(activeZone);
 	activeBuilding.calc();
 	jTextField17.setText("" + activeBuilding.getZoneData(activeZone,18,3));
 	jTextField18.setText("" + activeBuilding.getZoneData(activeZone,27,3));
+	jTextField20.setText("" + activeBuilding.getTotalGain());
+	jTextField19.setText("" + activeBuilding.getTotalLoss());
+	// PRINT FOR DEBUGGING
 	activeBuilding.output();
     }   //GEN-LAST:event_jButton4ActionPerformed
     
 
 
-
+    /* CLEAR BUTTON */
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton5ActionPerformed
 	jTextField5.setText("0");

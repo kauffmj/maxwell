@@ -47,8 +47,8 @@ import java.io.*;
 public class Building {
     
     // information about the job
-    private String jobName, jobDate, customer, address, notes;
-    private int jobNumber, regionNumber;
+    private String jobName, jobNumber, jobDate, customer, address, notes;
+    private int regionNumber;
     private Region region;
     private ArrayList<Zone> zone;
     private float totalGain, totalLoss;
@@ -73,6 +73,17 @@ public class Building {
     public void rmZone(int i) {
 	if (zone.size() > i)
 	    zone.remove(i); }
+
+    // method to set all Building data at once
+    public void setBuildingData(String name, String number, String date,
+				String cust, String add, String note) {
+	jobName = name;
+	jobNumber = number;
+	jobDate = date;
+	customer = cust;
+	address = add;
+	notes = note;
+    }
 
     // methods to get/set titles of individual zones
     public void setZoneTitle(int i, String name) {
@@ -104,6 +115,11 @@ public class Building {
     public int numZones() {
 	return zone.size(); }
 
+    public float getTotalGain() {
+	return totalGain; }
+    public float getTotalLoss() {
+	return totalLoss; }
+    
     // calculate all zones and update the totals from that
     public void calc() {
 	// reset totals to zero
