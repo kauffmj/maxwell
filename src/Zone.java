@@ -88,7 +88,7 @@ public class Zone {
 	data[24][0] = data[8][0];  // copy floor area 
 	data[25][0] = data[9][0];  // copy infiltration area
 	data[25][1] = data[9][1];  // copy infiltration height
-  }
+    }
 
     public void calc(Region reg) {
 	// START LEFT-HAND-SIDE OF SPREADSHEET
@@ -162,170 +162,197 @@ public class Zone {
 	}
     }
 
- public void nomultsoutput() {
-try{
-	System.out.println("Into fileoutput()");
-	PrintWriter fout = new PrintWriter(new FileWriter("Building.rtf",true));
-	fout.println("HEAT GAIN");	
-	fout.println("\t\t\tArea\t\tGain");
-	for (int i=0; i<data.length; i++) {
-	if(i == 0)
-	    fout.println("Gross Wall:\t\t" + data[i][0]);
-	else if(i == 1)
-	    fout.println("North Window:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 2)
-	    fout.println("South Window:\t\t" + data[i][0] + "\t\t" + data[i][3] );
-	else if(i == 3)
-	    fout.println("East/West Window:\t" + data[i][0] + "\t\t" + data[i][3] );
-	else if(i == 4)
-	    fout.println("Skylight:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 5)
-	    fout.println("Doors:\t\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 6)
-	    fout.println("Net Wall:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 7)
-	    fout.println("Ceiling:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 8)
-	    fout.println("Floor:\t\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 9)
-	    fout.println("Infiltration:\t\t" + data[i][0] + "\t\t" + data[i][3] + "\tHeight = " + data[i][1]);
-	else if(i == 10)
-	    fout.println("People:\t\t\t" + data[i][0] + "\t\t" + data[i][3]);
-//+ "\n\t\tSensible Gain = " + data[i][3] + "\n\t\tLatent Gain = " + data[i+6][3]);
-	else if(i == 11)
-	    fout.println("Appliance:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 12)
-	    fout.println("Subtotal Gain:\t\t\t\t" + data[i+1][3]);
-	else if(i == 13)
-	    fout.println("Duct Loss:\t\t\t\t" + data[i][3]);
-	else if(i == 14)
-	    fout.println("Total Sensible Gain:\t\t\t" + data[i][3]);
-	else if(i == 15)
-	    fout.println("Latent Infiltration:\t" + data[i][0] + "\t\t" + data[i][3] + "\t\tHeight = " + data[i][1]);
-	else if(i == 16)
-	    fout.println("Latent People Gain\t\t\t" + data[i][3]);
-	else if(i == 17)
-	    fout.println("Total Latent Gain:\t\t\t" + data[i][3]);
-	else if(i == 18){
-	    fout.println("TOTAL GAIN:\t\t\t\t" + data[i][3]);
-	    fout.println();
-	    fout.println();
-	    fout.println("HEAT LOSS");
-	    fout.println("\t\t\tArea\t\tLoss");
-            fout.println();}
-	else if(i == 19)
-	    fout.println("Gross Wall:\t\t" + data[i][3]);
-	else if(i == 20)
-	    fout.println("All Windows:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 21)
-	    fout.println("Doors:\t\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 22)
-	    fout.println("Net Wall:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 23)
-	    fout.println("Ceiling:\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 24)
-	    fout.println("Floor:\t\t\t" + data[i][0] + "\t\t" + data[i][3]);
-	else if(i == 25)
-	    fout.println("Infiltration:\t\t" + data[i][0] + "\t\t" + data[i][3] + "\t\tHeight = " + data[i][1]);
-	else if(i == 26) 
-	    fout.println("Heat Loss Subtotal\t\t\t" + data[i][3]);
-	else if (i == 27){
-	    fout.println("TOTAL LOSS:\t\t\t\t" + data[i][3]);
-	    //for (int j=1; j<data[i].length; j++)
+    public void nomultsoutput() {
+	try{
+	    System.out.println("Into fileoutput()");
+	    PrintWriter fout = new PrintWriter(new FileWriter("Building.rtf",true));
+	    fout.println("HEAT GAIN");	
+	    fout.println("\t\t\tArea\t\tGain");
+	    for (int i=0; i<data.length; i++) {
+		if(i == 0)
+		    fout.println("Gross Wall:\t\t" + data[i][0]);
+		else if(i == 1)
+		    fout.println("North Window:\t\t" + data[i][0] 
+				 + "\t\t" + data[i][3]);
+		else if(i == 2)
+		    fout.println("South Window:\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3] );
+		else if(i == 3)
+		    fout.println("East/West Window:\t" 
+				 + data[i][0] + "\t\t" + data[i][3] );
+		else if(i == 4)
+		    fout.println("Skylight:\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3]);
+		else if(i == 5)
+		    fout.println("Doors:\t\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3]);
+		else if(i == 6)
+		    fout.println("Net Wall:\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3]);
+		else if(i == 7)
+		    fout.println("Ceiling:\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3]);
+		else if(i == 8)
+		    fout.println("Floor:\t\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3]);
+		else if(i == 9)
+		    fout.println("Infiltration:\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3] 
+				 + "\tHeight = " + data[i][1]);
+		else if(i == 10)
+		    fout.println("People:\t\t\t" 
+				 + data[i][0] + "\t\t" + data[i][3]);
+		//+ "\n\t\tSensible Gain = " 
+		+ data[i][3] + "\n\t\tLatent Gain = " + data[i+6][3]);
+	    else if(i == 11)
+		fout.println("Appliance:\t\t" 
+			     + data[i][0] + "\t\t" + data[i][3]);
+	    else if(i == 12)
+		fout.println("Subtotal Gain:\t\t\t\t" 
+			     + data[i+1][3]);
+	    else if(i == 13)
+		fout.println("Duct Loss:\t\t\t\t" 
+			     + data[i][3]);
+	    else if(i == 14)
+		fout.println("Total Sensible Gain:\t\t\t" 
+			     + data[i][3]);
+	    else if(i == 15)
+		fout.println("Latent Infiltration:\t" 
+			     + data[i][0] + "\t\t" + data[i][3] 
+			     + "\t\tHeight = " + data[i][1]);
+	    else if(i == 16)
+		fout.println("Latent People Gain\t\t\t" 
+			     + data[i][3]);
+	    else if(i == 17)
+		fout.println("Total Latent Gain:\t\t\t" 
+			     + data[i][3]);
+	    else if(i == 18){
+		fout.println("TOTAL GAIN:\t\t\t\t" + data[i][3]);
+		fout.println();
+		fout.println();
+		fout.println("HEAT LOSS");
+		fout.println("\t\t\tArea\t\tLoss");
+		fout.println();}
+	    else if(i == 19)
+		fout.println("Gross Wall:\t\t" + data[i][3]);
+	    else if(i == 20)
+		fout.println("All Windows:\t\t" 
+			     + data[i][0] + "\t\t" + data[i][3]);
+	    else if(i == 21)
+		fout.println("Doors:\t\t\t" 
+			     + data[i][0] + "\t\t" + data[i][3]);
+	    else if(i == 22)
+		fout.println("Net Wall:\t\t" 
+			     + data[i][0] + "\t\t" + data[i][3]);
+	    else if(i == 23)
+		fout.println("Ceiling:\t\t" 
+			     + data[i][0] + "\t\t" + data[i][3]);
+	    else if(i == 24)
+		fout.println("Floor:\t\t\t" 
+			     + data[i][0] + "\t\t" + data[i][3]);
+	    else if(i == 25)
+		fout.println("Infiltration:\t\t" 
+			     + data[i][0] + "\t\t" + data[i][3] 
+			     + "\t\tHeight = " + data[i][1]);
+	    else if(i == 26) 
+		fout.println("Heat Loss Subtotal\t\t\t" + data[i][3]);
+	    else if (i == 27){
+		fout.println("TOTAL LOSS:\t\t\t\t" + data[i][3]);
+		//for (int j=1; j<data[i].length; j++)
 		//System.out.print(", " + data[i][j]);
-	    //System.out.println("]");
-	    fout.close();}
+		//System.out.println("]");
+		fout.close();}
 	}
-}catch (Exception e){
+    }catch (Exception e){
 	//oh noes
-}
     }
+}
 
 public void bigfileoutput(){
 
-try{
+    try{
 	System.out.println("Into fileoutput()");
 	PrintWriter fout = new PrintWriter(new FileWriter("Building.rtf",true));
 	fout.println("HEAT GAIN");
 	for (int i=0; i<data.length; i++) {
-	if(i == 0)
-	    fout.println("Gross Wall:\t\t" + "\n\t\tArea = " + data[i][0]);
-	else if(i == 1)
-	    fout.println("North Window:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 2)
-	    fout.println("South Window:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 3)
-	    fout.println("East/West Window:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 4)
-	    fout.println("Skylight:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 5)
-	    fout.println("Doors:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 6)
-	    fout.println("Net Wall:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 7)
-	    fout.println("Ceiling:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 8)
-	    fout.println("Floor:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 9)
-	    fout.println("Infiltration:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeight = " + data[i][1] + "\n\t\tHeat Multiplier = " + data[i][2] + "\n\t\tGain = " + data[i][3]);
-	else if(i == 10)
-	    fout.println("People:\t\t" + "\n\t\tNumber of People = " + data[i][0] + "\n\t\tSensible Gain = " + data[i][3] + "\n\t\tLatent Gain = " + data[i+6][3]);
-	else if(i == 11)
-	    fout.println("Appliance Gain: " + data[i][0]);
-	else if(i == 12)
-	    fout.println("Duct Loss:" + "\n\t\tSubtotal Gain = " + data[i][3] + "\n\t\tLoss Factor = " + data[i+1][1] + "\n\t\tDuct Loss = " + data[i+1][3]);
-	//else if(i == 13)
+	    if(i == 0)
+		fout.println("Gross Wall:\t\t" + "\n\t\tArea = " + data[i][0]);
+	    else if(i == 1)
+		fout.println("North Window:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 2)
+		fout.println("South Window:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 3)
+		fout.println("East/West Window:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 4)
+		fout.println("Skylight:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 5)
+		fout.println("Doors:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 6)
+		fout.println("Net Wall:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 7)
+		fout.println("Ceiling:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 8)
+		fout.println("Floor:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeat Multiplier = " + data[i][1] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 9)
+		fout.println("Infiltration:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeight = " + data[i][1] + "\n\t\tHeat Multiplier = " + data[i][2] + "\n\t\tGain = " + data[i][3]);
+	    else if(i == 10)
+		fout.println("People:\t\t" + "\n\t\tNumber of People = " + data[i][0] + "\n\t\tSensible Gain = " + data[i][3] + "\n\t\tLatent Gain = " + data[i+6][3]);
+	    else if(i == 11)
+		fout.println("Appliance Gain: " + data[i][0]);
+	    else if(i == 12)
+		fout.println("Duct Loss:" + "\n\t\tSubtotal Gain = " + data[i][3] + "\n\t\tLoss Factor = " + data[i+1][1] + "\n\t\tDuct Loss = " + data[i+1][3]);
+	    //else if(i == 13)
 	    //System.out.println("Heat Gain Subtotal\t" + " = [" + data[i][0]);
-	else if(i == 14)
-	    fout.println("Total Sensible Gain: " + data[i][0]);
-	else if(i == 15)
-	    fout.println("Latent Infiltration:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeight = " + data[i][1] + "\n\t\tHeat Multiplier = " + data[i][2] + "\n\t\tLoss = " + data[i][3]);
-	//else if(i == 16)
+	    else if(i == 14)
+		fout.println("Total Sensible Gain: " + data[i][0]);
+	    else if(i == 15)
+		fout.println("Latent Infiltration:\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeight = " + data[i][1] + "\n\t\tHeat Multiplier = " + data[i][2] + "\n\t\tLoss = " + data[i][3]);
+	    //else if(i == 16)
 	    //System.out.println("Number of People\t" + "\n\tArea = " + data[i][0]);
-	else if(i == 17)
-	    fout.println("Total Latent Gain: " + data[i][3]);
-	else if(i == 18){
-	    fout.println("TOTAL GAIN: " + data[i][3]);
-	    fout.println();
-	    fout.println("HEAT LOSS");
-            fout.println();}
-	else if(i == 19)
-	    fout.println("Gross Wall Area: " + data[i][3]);
-	else if(i == 20)
-	    fout.println("All Windows: " + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
-	else if(i == 21)
-	    fout.println("Doors:" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
-	else if(i == 22)
-	    fout.println("Net Wall:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
-	else if(i == 23)
-	    fout.println("Ceiling:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
-	else if(i == 24)
-	    fout.println("Floor:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
-	else if(i == 25)
-	    fout.println("Infiltration:" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeight = " + data[i][1] + "\n\t\tCooling Multiplier = " + data[i][2] + "\n\t\tLoss = " + data[i][3]);
-	//else if(i == 26)
+	    else if(i == 17)
+		fout.println("Total Latent Gain: " + data[i][3]);
+	    else if(i == 18){
+		fout.println("TOTAL GAIN: " + data[i][3]);
+		fout.println();
+		fout.println("HEAT LOSS");
+		fout.println();}
+	    else if(i == 19)
+		fout.println("Gross Wall Area: " + data[i][3]);
+	    else if(i == 20)
+		fout.println("All Windows: " + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
+	    else if(i == 21)
+		fout.println("Doors:" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
+	    else if(i == 22)
+		fout.println("Net Wall:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
+	    else if(i == 23)
+		fout.println("Ceiling:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
+	    else if(i == 24)
+		fout.println("Floor:\t\t" + "\n\t\tArea = " + data[i][0] + "\n\t\tCooling Multiplier = " + data[i][1] + "\n\t\tLoss = " + data[i][3]);
+	    else if(i == 25)
+		fout.println("Infiltration:" + "\n\t\tArea = " + data[i][0] + "\n\t\tHeight = " + data[i][1] + "\n\t\tCooling Multiplier = " + data[i][2] + "\n\t\tLoss = " + data[i][3]);
+	    //else if(i == 26)
 	    //System.out.println("BLANK\t\t\t" + " = [" + data[i][0]);
-	else if (i == 27){
-	    fout.println("Total Loss:\t\t" + "\n\t\tLoss Subtotal = " + data[i][0] + "\n\t\tMargin Multiplier = " + data[i][1] + "\n\t\tTOTAL LOSS = " + data[i][3]);
-fout.close();}
+	    else if (i == 27){
+		fout.println("Total Loss:\t\t" + "\n\t\tLoss Subtotal = " + data[i][0] + "\n\t\tMargin Multiplier = " + data[i][1] + "\n\t\tTOTAL LOSS = " + data[i][3]);
+		fout.close();}
 	    //for (int j=1; j<data[i].length; j++)
-		//System.out.print(", " + data[i][j]);
+	    //System.out.print(", " + data[i][j]);
 	    //System.out.println("]");
 	}
-}catch (Exception e){
+    }catch (Exception e){
 	//oh noes
-}
     }
+}
 
 
 
-    public void fileoutput1() {
-	try{
+public void fileoutput1() {
+    try{
 	//System.out.println("Into fileoutput()");
 	PrintWriter pout = new PrintWriter(new FileWriter("Building.rtf",true));
 	for (int i=0; i<data.length; i++) {
-	//System.out.println("Into first for loop");
-	pout.print("hello from zone");
+	    //System.out.println("Into first for loop");
+	    pout.print("hello from zone");
 	    pout.print(i + " = [" + data[i][0]);
 	    for (int j=1; j<data[i].length; j++){
 		//System.out.println("Into second for loop");
@@ -333,8 +360,8 @@ fout.close();}
 	    pout.println("]");
 	    pout.close();
 	}
-	}catch(Exception e){
-	    System.err.println("There has been an error");
-}
+    }catch(Exception e){
+	System.err.println("There has been an error");
     }
+}
 }
