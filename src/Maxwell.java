@@ -109,6 +109,13 @@ public class Maxwell extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
+	MenuNew = new javax.swing.JMenuItem("New");
+	MenuOpen = new javax.swing.JMenuItem("Open");
+	MenuSave = new javax.swing.JMenuItem("Save");
+	MenuPrint = new javax.swing.JMenuItem("Print");
+	MenuExit = new javax.swing.JMenuItem("Exit");
+	MenuAbout = new javax.swing.JMenuItem("About Maxwell");
+	MenuDocumentation = new javax.swing.JMenuItem("Documentation");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -246,9 +253,16 @@ public class Maxwell extends javax.swing.JFrame {
         });
 
         jMenu1.setText("File");
+	jMenu1.add(MenuNew);
+	jMenu1.add(MenuOpen);
+	jMenu1.add(MenuSave);
+	jMenu1.add(MenuPrint);
+	jMenu1.add(MenuExit);
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Help");
+	jMenu2.add(MenuAbout);
+	jMenu2.add(MenuDocumentation);
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -840,6 +854,13 @@ public class Maxwell extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuItem MenuNew;
+    private javax.swing.JMenuItem MenuOpen;
+    private javax.swing.JMenuItem MenuSave;
+    private javax.swing.JMenuItem MenuPrint;
+    private javax.swing.JMenuItem MenuExit;
+    private javax.swing.JMenuItem MenuAbout;
+    private javax.swing.JMenuItem MenuDocumentation;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
