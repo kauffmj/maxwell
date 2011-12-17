@@ -110,12 +110,33 @@ public class Maxwell extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 	MenuNew = new javax.swing.JMenuItem("New");
+	MenuNew.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    MenuNewActionPerformed(evt); } });
 	MenuOpen = new javax.swing.JMenuItem("Open");
+	MenuOpen.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    MenuOpenActionPerformed(evt); } });
 	MenuSave = new javax.swing.JMenuItem("Save");
+	MenuSave.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    MenuSaveActionPerformed(evt); } });
 	MenuPrint = new javax.swing.JMenuItem("Print");
+	MenuPrint.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    MenuPrintActionPerformed(evt); } });
 	MenuExit = new javax.swing.JMenuItem("Exit");
+	MenuExit.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    System.exit(0); } });
 	MenuAbout = new javax.swing.JMenuItem("About Maxwell");
+	MenuAbout.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    MenuAboutActionPerformed(evt); } });
 	MenuDocumentation = new javax.swing.JMenuItem("Documentation");
+	MenuDocumentation.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    MenuDocumentationActionPerformed(evt); } });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -784,6 +805,30 @@ public class Maxwell extends javax.swing.JFrame {
 	jComboBox9.setSelectedIndex(0);
 	jComboBox10.setSelectedIndex(0);
    }   //GEN-LAST:event_jButton5ActionPerformed
+
+
+    /*
+     *  MENU BAR CLICKS
+     */
+    // "File -> New" was clicked
+    private void MenuNewActionPerformed(java.awt.event.ActionEvent evt) {
+	System.out.println("File -> New was clicked"); }
+    // "File -> Open" was clicked
+    private void MenuOpenActionPerformed(java.awt.event.ActionEvent evt) {
+	System.out.println("File -> Open was clicked"); }
+    // "File -> Save" was clicked
+    private void MenuSaveActionPerformed(java.awt.event.ActionEvent evt) {
+	System.out.println("File -> Save was clicked"); }
+    // "File -> Print" was clicked
+    private void MenuPrintActionPerformed(java.awt.event.ActionEvent evt) {
+	System.out.println("File -> Print was clicked"); }
+    // "Help -> About" was clicked
+    private void MenuAboutActionPerformed(java.awt.event.ActionEvent evt) {
+	System.out.println("Help -> About was clicked"); }
+    // "Help -> Documentation" was clicked
+    private void MenuDocumentationActionPerformed(java.awt.event.ActionEvent evt) {
+	System.out.println("Help -> Documentation was clicked"); }
+
 
     /**
     * @param args the command line arguments
