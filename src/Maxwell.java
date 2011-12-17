@@ -572,11 +572,15 @@ public class Maxwell extends javax.swing.JFrame {
 	    {
 		System.out.println("User entered no new name, no change was made");
 	    }
-	else
+	else {
+	    refreshFlag = 0;
 	    activeBuilding.setZoneTitle(activeZone, rename);	
-	//jComboBox1.removeAllItems();
-	//for (int i=0; i<activeBuilding.numZones(); i++)
-	//    jComboBox1.addItem(activeBuilding.getZoneTitle(i));
+	    jComboBox1.removeAllItems();
+	    for (int i=0; i<activeBuilding.numZones(); i++)
+	        jComboBox1.addItem(activeBuilding.getZoneTitle(i));
+	    jComboBox1.setSelectedIndex(activeZone);
+	    refreshFlag = 1;
+	}
     }
 
     /* REFRESH SCREEN FROM BUILDING/ZONE */
