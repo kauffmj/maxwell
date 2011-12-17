@@ -517,11 +517,13 @@ public class Maxwell extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
+	if (refreshFlag == 1) {
 	activeBuilding.calc();
 	System.out.println("Zone changed to: " + jComboBox1.getSelectedIndex());
 	activeZone = jComboBox1.getSelectedIndex();
-	refreshScreen();
+	refreshScreen();}
     }
 
     /* ADD NEW ZONE BUTTON PRESSED */
@@ -532,25 +534,33 @@ public class Maxwell extends javax.swing.JFrame {
 	int num = activeBuilding.numZones();
 	//prompt user for name of new zone
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	String newname = JOptionPane.showInputDialog(frame,"Input Name:",null);
-	//add a new zone to building
-	activeBuilding.addZone(newname);
-	//add a new entry to zone dropdown
-	jComboBox1.addItem(newname);
-	jComboBox1.setSelectedIndex(num);
-	//refresh with info from new empty zone
-	activeZone = num;
-	refreshScreen();
+	String newname=JOptionPane.showInputDialog(frame,"New Zone Name:",null);
+	if (newname == null)
+	    System.out.println("User canceled new zone");
+	else {
+	    //add a new zone to building
+	    activeBuilding.addZone(newname);
+	    //add a new entry to zone dropdown
+	    jComboBox1.addItem(newname);
+	    jComboBox1.setSelectedIndex(num);
+	    //refresh with info from new empty zone
+	    activeZone = num;
+	    refreshScreen();
+	}
     }   //GEN-LAST:event_jButton1ActionPerformed
 
     /* DELETE ZONE BUTTON PRESSED */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-	if (activeBuilding.numZones() > 0) {
+	System.out.println("Deleting Zone: " + activeZone);
+	refreshFlag=0;
+	if (activeBuilding.numZones() > 1) {
 	    activeBuilding.rmZone(activeZone);
 	    jComboBox1.removeItemAt(activeZone);
 	}
-	if (activeZone > 0)
-	    activeZone--;
+	refreshFlag=1;
+	activeZone = 0;
+	jComboBox1.setSelectedIndex(activeZone);
+	System.out.println("Active Zone: " + activeZone);
 	refreshScreen();
     }
 
@@ -609,8 +619,8 @@ public class Maxwell extends javax.swing.JFrame {
 				       jTextField2.getText(),
 				       jTextField3.getText(),
 				       jTextField4.getText(),
-				       jTextField5.getText(),
-				       jTextField6.getText());
+				       jTextArea3.getText(),
+				       jTextArea1.getText());
     }
 
     /* SEND INPUT DATA TO ZONE OBJECT */
@@ -753,6 +763,7 @@ public class Maxwell extends javax.swing.JFrame {
     private static Region region;
     private static Building activeBuilding;
     private static int activeZone;
+    private static int refreshFlag = 1;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
