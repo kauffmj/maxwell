@@ -84,7 +84,19 @@ public class Building {
 	address = add;
 	notes = note;
     }
-
+    public String getJobName() {
+	return jobName; }
+    public String getJobNumber() {
+	return jobNumber; }
+    public String getJobDate() {
+	return jobDate; }
+    public String getCustomer() {
+	return customer; }
+    public String getAddress() {
+	return address; }
+    public String getNotes() {
+	return notes; }
+ 
     // methods to get/set titles of individual zones
     public void setZoneTitle(int i, String name) {
 	zone.get(i).setTitle(name); }
