@@ -203,7 +203,7 @@ public class Zone {
 		    fout.println("People:\t\t\t" 
 				 + data[i][0] + "\t\t" + data[i][3]);
 		//+ "\n\t\tSensible Gain = " 
-		+ data[i][3] + "\n\t\tLatent Gain = " + data[i+6][3]);
+		//+ data[i][3] + "\n\t\tLatent Gain = " + data[i+6][3]);
 	    else if(i == 11)
 		fout.println("Appliance:\t\t" 
 			     + data[i][0] + "\t\t" + data[i][3]);
