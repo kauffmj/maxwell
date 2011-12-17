@@ -14,6 +14,9 @@
  *
  * @author eric
  */
+
+import javax.swing.*;
+import java.awt.*;
 public class Maxwell extends javax.swing.JFrame {
 
     /** Creates new form Maxwell */
@@ -525,7 +528,8 @@ private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {
 	activeBuilding.calc();
 	int num = activeBuilding.numZones();
 	//prompt user for name of new zone
-	String newname = "New Zone";
+	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
+	String newname = JOptionPane.showInputDialog(frame, "Input Name:", null);
 	//add a new zone to building
 	activeBuilding.addZone(newname);
 	//add a new entry to zone dropdown
