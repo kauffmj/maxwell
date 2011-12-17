@@ -513,23 +513,32 @@ public class Maxwell extends javax.swing.JFrame {
                     .addComponent(jButton4))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
-
+	
         pack();
+	refreshScreen();
     }// </editor-fold>//GEN-END:initComponents
 
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
 	if (refreshFlag == 1) {
-	activeBuilding.calc();
-	System.out.println("Zone changed to: " + jComboBox1.getSelectedIndex());
-	activeZone = jComboBox1.getSelectedIndex();
-	refreshScreen();}
+	    setBuildingData();
+	    setZoneData(activeZone);
+	    storeData();
+	    activeBuilding.calc();
+	    System.out.println("Zone changed to: " + 
+			       jComboBox1.getSelectedIndex());
+	    activeZone = jComboBox1.getSelectedIndex();
+	    refreshScreen();
+	}
     }
 
     /* ADD NEW ZONE BUTTON PRESSED */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton1ActionPerformed
 	//calc current zone
+	setBuildingData();
+	setZoneData(activeZone);
+	storeData();
 	activeBuilding.calc();
 	int num = activeBuilding.numZones();
 	//prompt user for name of new zone
@@ -634,8 +643,7 @@ public class Maxwell extends javax.swing.JFrame {
 
     /* SEND INPUT DATA TO ZONE OBJECT */
     private void setZoneData(int i) {
-	// store the selections of dropdowns
-	
+	region = activeBuilding.getRegion();
 	// store the input values/data
         activeBuilding.setZoneData(activeZone,0,0, // gross wall area
 				   Float.parseFloat(jTextField5.getText()));
@@ -708,15 +716,9 @@ public class Maxwell extends javax.swing.JFrame {
     /* CALCULATE BUTTON */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton4ActionPerformed
-	// SAVE DROPDOWNS	
-	int temp[]={jComboBox3.getSelectedIndex(),jComboBox4.getSelectedIndex(),
-		    jComboBox5.getSelectedIndex(),jComboBox6.getSelectedIndex(),
-		    jComboBox7.getSelectedIndex(),jComboBox8.getSelectedIndex(),
-		    jComboBox9.getSelectedIndex(),
-		    jComboBox10.getSelectedIndex()};
-	activeBuilding.setZoneDropdowns(activeZone, temp);
-	// 
-	setBuildingData();
+	
+	storeData();
+	
 	region = activeBuilding.getRegion();
 	setZoneData(activeZone);
 	activeBuilding.calc();
@@ -728,6 +730,20 @@ public class Maxwell extends javax.swing.JFrame {
 	activeBuilding.output();
     }   //GEN-LAST:event_jButton4ActionPerformed
     
+
+    /* SAVE DATA BEFORE SWITCHING */
+    private void storeData() {
+	// SAVE DROPDOWNS	
+	int temp[]={jComboBox3.getSelectedIndex(),jComboBox4.getSelectedIndex(),
+		    jComboBox5.getSelectedIndex(),jComboBox6.getSelectedIndex(),
+		    jComboBox7.getSelectedIndex(),jComboBox8.getSelectedIndex(),
+		    jComboBox9.getSelectedIndex(),
+		    jComboBox10.getSelectedIndex()};
+	activeBuilding.setZoneDropdowns(activeZone, temp);
+	// 
+	setBuildingData();
+	
+    }
 
 
     /* CLEAR BUTTON */
@@ -759,7 +775,7 @@ public class Maxwell extends javax.swing.JFrame {
     * @param args the command line arguments
     */
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
+	java.awt.EventQueue.invokeLater(new Runnable() {
 	    public void run() {
                 new Maxwell().setVisible(true);
             }
