@@ -71,7 +71,7 @@ public class Building {
     public void addZone(String name) {
 	zone.add(new Zone(name)); }
     public void rmZone(int i) {
-	if (zone.size() > i)
+	if (zone.size() > i && zone.size() > 1)
 	    zone.remove(i); }
 
     // method to set all Building data at once
