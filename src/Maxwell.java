@@ -131,7 +131,13 @@ public class Maxwell extends javax.swing.JFrame {
 
         jLabel7.setText("Zone:");
 
+	// Zone selection combobox
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Untitled Zone" }));
+	jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+	    public void actionPerformed(java.awt.event.ActionEvent evt) {
+		jComboBox3ActionPerformed(evt);
+	    }
+	    });
 
         jButton1.setText("Add New");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -141,8 +147,18 @@ public class Maxwell extends javax.swing.JFrame {
         });
 
         jButton2.setText("Delete");
-
+	/*jButton2.addActionListener(new java.awt.event.ActionListener() {
+	  public void actionPerformed(java.awt.event.ActionEvent evt) {
+	  jButton2ActionPerformed(evt);
+	  }
+	  });*/
+	
         jButton3.setText("Rename");
+	/*jButton3.addActionListener(new java.awt.event.ActionListener() {
+	  public void actionPerformed(java.awt.event.ActionEvent evt) {
+	  jButton3ActionPerformed(evt);
+	  }
+	  });*/
 
         jLabel8.setText("Region:");
 
@@ -498,9 +514,13 @@ public class Maxwell extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {
+    
+}
+
+    /* ADD NEW ZONE BUTTON PRESSED */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton1ActionPerformed
-
 	//calc current zone
 	activeBuilding.calc();
 	int num = activeBuilding.numZones();
@@ -515,6 +535,13 @@ public class Maxwell extends javax.swing.JFrame {
 	activeZone = num;
 	refreshScreen();
     }   //GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+	activeBuilding.rmZone(activeZone);
+	if (activeZone > 0)
+	    activeZone--;
+	refreshScreen();
+    }
 
     /* REFRESH SCREEN FROM BUILDING/ZONE */
     public void refreshScreen() {
