@@ -138,31 +138,31 @@ public class Maxwell extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Untitled Zone" }));
 	jComboBox1.addActionListener(new java.awt.event.ActionListener() {
 	    public void actionPerformed(java.awt.event.ActionEvent evt) {
-		jComboBox3ActionPerformed(evt);
+		jComboBox1ActionPerformed(evt);
 	    }
 	    });
 
         jButton1.setText("Add New");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	    public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
         jButton2.setText("Delete");
-	/*jButton2.addActionListener(new java.awt.event.ActionListener() {
-	  public void actionPerformed(java.awt.event.ActionEvent evt) {
-	  jButton2ActionPerformed(evt);
-	  }
-	  });*/
+	jButton2.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    jButton2ActionPerformed(evt);
+		}
+	    });
 	
         jButton3.setText("Rename");
-	/*jButton3.addActionListener(new java.awt.event.ActionListener() {
-	  public void actionPerformed(java.awt.event.ActionEvent evt) {
-	  jButton3ActionPerformed(evt);
-	  }
-	  });*/
-
+	jButton3.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+		    jButton3ActionPerformed(evt);
+		}
+	    });
+	
         jLabel8.setText("Region:");
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Northwest PA" }));
@@ -517,9 +517,12 @@ public class Maxwell extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {
-    
-}
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
+	activeBuilding.calc();
+	System.out.println("Zone changed to: " + jComboBox1.getSelectedIndex());
+	activeZone = jComboBox1.getSelectedIndex();
+	refreshScreen();
+    }
 
     /* ADD NEW ZONE BUTTON PRESSED */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -529,7 +532,7 @@ private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {
 	int num = activeBuilding.numZones();
 	//prompt user for name of new zone
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	String newname = JOptionPane.showInputDialog(frame, "Input Name:", null);
+	String newname = JOptionPane.showInputDialog(frame,"Input Name:",null);
 	//add a new zone to building
 	activeBuilding.addZone(newname);
 	//add a new entry to zone dropdown
@@ -540,11 +543,25 @@ private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {
 	refreshScreen();
     }   //GEN-LAST:event_jButton1ActionPerformed
 
+    /* DELETE ZONE BUTTON PRESSED */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-	activeBuilding.rmZone(activeZone);
+	if (activeBuilding.numZones() > 0) {
+	    activeBuilding.rmZone(activeZone);
+	    jComboBox1.removeItemAt(activeZone);
+	}
 	if (activeZone > 0)
 	    activeZone--;
 	refreshScreen();
+    }
+
+    /* RENAME ZONE PRESSED */
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+	String newName = "Insert here";
+	System.out.println("New zone name: " + newName);
+	activeBuilding.setZoneTitle(activeZone, newName);
+	//jComboBox1.removeAllItems();
+	//for (int i=0; i<activeBuilding.numZones(); i++)
+	//    jComboBox1.addItem(activeBuilding.getZoneTitle(i));
     }
 
     /* REFRESH SCREEN FROM BUILDING/ZONE */
@@ -602,29 +619,29 @@ private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {
 	
 	// store the input values/data
         activeBuilding.setZoneData(activeZone,0,0, // gross wall area
-				   Integer.parseInt(jTextField5.getText()));
+				   Float.parseFloat(jTextField5.getText()));
 	activeBuilding.setZoneData(activeZone,1,0, // north window area
-				   Integer.parseInt(jTextField6.getText()));
+				   Float.parseFloat(jTextField6.getText()));
 	activeBuilding.setZoneData(activeZone,2,0, // south window area
-				   Integer.parseInt(jTextField7.getText()));
+				   Float.parseFloat(jTextField7.getText()));
 	activeBuilding.setZoneData(activeZone,3,0, // eastwest window area
-				   Integer.parseInt(jTextField8.getText()));
+				   Float.parseFloat(jTextField8.getText()));
 	activeBuilding.setZoneData(activeZone,4,0, // skylight area
-				   Integer.parseInt(jTextField9.getText()));
+				   Float.parseFloat(jTextField9.getText()));
 	activeBuilding.setZoneData(activeZone,5,0, // door area
-				   Integer.parseInt(jTextField10.getText()));
+				   Float.parseFloat(jTextField10.getText()));
 	activeBuilding.setZoneData(activeZone,7,0, // ceiling area
-				   Integer.parseInt(jTextField11.getText()));
+				   Float.parseFloat(jTextField11.getText()));
 	activeBuilding.setZoneData(activeZone,8,0, // floor area
-				   Integer.parseInt(jTextField12.getText()));
+				   Float.parseFloat(jTextField12.getText()));
 	activeBuilding.setZoneData(activeZone,9,0, // infiltration area
-				   Integer.parseInt(jTextField13.getText()));
+				   Float.parseFloat(jTextField13.getText()));
 	activeBuilding.setZoneData(activeZone,9,1, // infiltration height
-				   Integer.parseInt(jTextField14.getText()));
+				   Float.parseFloat(jTextField14.getText()));
 	activeBuilding.setZoneData(activeZone,10,0, // people
-				   Integer.parseInt(jTextField15.getText()));
+				   Float.parseFloat(jTextField15.getText()));
 	activeBuilding.setZoneData(activeZone,11,0, // appliance gain
-				   Integer.parseInt(jTextField16.getText()));
+				   Float.parseFloat(jTextField16.getText()));
 	// multipliers of north/south/eastwest/skylight/doors based on region
 	activeBuilding.setZoneData(activeZone,1,1,region.getValue(3,0));
 	activeBuilding.setZoneData(activeZone,2,1,region.getValue(3,1));
