@@ -150,6 +150,10 @@ public class Zone {
     }
 
     public void output() {
+	System.out.print("[" + dropdowns[0]);
+	for (int i=1; i<dropdowns.length; i++)
+	    System.out.print(", " + dropdowns[i]);
+	System.out.println("]");
 	for (int i=0; i<data.length; i++) {
 	    System.out.print(i + " = [" + data[i][0]);
 	    for (int j=1; j<data[i].length; j++)

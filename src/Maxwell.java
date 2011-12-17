@@ -502,6 +502,45 @@ public class Maxwell extends javax.swing.JFrame {
         // TODO add your handling code here:
 }//GEN-LAST:event_jButton1ActionPerformed
 
+    /* REFRESH SCREEN FROM BUILDING/ZONE */
+    public void refreshScreen() {
+	// refresh job information
+	jTextField1.setText(activeBuilding.getJobName());
+	jTextField2.setText(activeBuilding.getJobNumber());
+	jTextField3.setText(activeBuilding.getJobDate());
+	jTextField4.setText(activeBuilding.getCustomer());
+	jTextArea3.setText(activeBuilding.getAddress());
+	jTextArea1.setText(activeBuilding.getNotes());
+	// refresh values
+	jTextField5.setText("" + activeBuilding.getZoneData(activeZone,0,0));
+	jTextField6.setText("" + activeBuilding.getZoneData(activeZone,1,0));
+	jTextField7.setText("" + activeBuilding.getZoneData(activeZone,2,0));
+	jTextField8.setText("" + activeBuilding.getZoneData(activeZone,3,0));
+	jTextField9.setText("" + activeBuilding.getZoneData(activeZone,4,0));
+	jTextField10.setText("" + activeBuilding.getZoneData(activeZone,5,0));
+	jTextField11.setText("" + activeBuilding.getZoneData(activeZone,7,0));
+	jTextField12.setText("" + activeBuilding.getZoneData(activeZone,8,0));
+	jTextField13.setText("" + activeBuilding.getZoneData(activeZone,9,0));
+	jTextField14.setText("" + activeBuilding.getZoneData(activeZone,9,1));
+	jTextField15.setText("" + activeBuilding.getZoneData(activeZone,10,0));
+	jTextField16.setText("" + activeBuilding.getZoneData(activeZone,11,0));
+	jTextField17.setText("" + activeBuilding.getZoneData(activeZone,18,3));
+	jTextField18.setText("" + activeBuilding.getZoneData(activeZone,27,3));
+	// refresh building totals
+	jTextField20.setText("" + activeBuilding.getTotalGain());
+	jTextField19.setText("" + activeBuilding.getTotalLoss());
+	// refresh dropdowns
+	int temp[] = activeBuilding.getZoneDropdowns(activeZone);
+	jComboBox3.setSelectedIndex(temp[0]);
+	jComboBox4.setSelectedIndex(temp[1]);
+	jComboBox5.setSelectedIndex(temp[2]);
+	jComboBox6.setSelectedIndex(temp[3]);
+	jComboBox7.setSelectedIndex(temp[4]);
+	jComboBox8.setSelectedIndex(temp[5]);
+	jComboBox9.setSelectedIndex(temp[6]);
+	jComboBox10.setSelectedIndex(temp[7]);
+    }
+
     /* SEND BUILDING DESCRIPTIONS TO BUILDING OBJECT */
     private void setBuildingData() {
 	activeBuilding.setBuildingData(jTextField1.getText(),
@@ -510,11 +549,13 @@ public class Maxwell extends javax.swing.JFrame {
 				       jTextField4.getText(),
 				       jTextField5.getText(),
 				       jTextField6.getText());
-
     }
 
     /* SEND INPUT DATA TO ZONE OBJECT */
     private void setZoneData(int i) {
+	// store the selections of dropdowns
+	
+	// store the input values/data
         activeBuilding.setZoneData(activeZone,0,0, // gross wall area
 				   Integer.parseInt(jTextField5.getText()));
 	activeBuilding.setZoneData(activeZone,1,0, // north window area
@@ -586,6 +627,14 @@ public class Maxwell extends javax.swing.JFrame {
     /* CALCULATE BUTTON */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton4ActionPerformed
+	// SAVE DROPDOWNS	
+	int temp[]={jComboBox3.getSelectedIndex(),jComboBox4.getSelectedIndex(),
+		    jComboBox5.getSelectedIndex(),jComboBox6.getSelectedIndex(),
+		    jComboBox7.getSelectedIndex(),jComboBox8.getSelectedIndex(),
+		    jComboBox9.getSelectedIndex(),
+		    jComboBox10.getSelectedIndex()};
+	activeBuilding.setZoneDropdowns(activeZone, temp);
+	// 
 	setBuildingData();
 	region = activeBuilding.getRegion();
 	setZoneData(activeZone);
@@ -631,7 +680,7 @@ public class Maxwell extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+	    public void run() {
                 new Maxwell().setVisible(true);
             }
         });
