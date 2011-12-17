@@ -566,9 +566,14 @@ public class Maxwell extends javax.swing.JFrame {
 
     /* RENAME ZONE PRESSED */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
-	String newName = "Insert here";
-	System.out.println("New zone name: " + newName);
+	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
+	String rename=JOptionPane.showInputDialog(frame,"New Name:",null);
+if(rename = null)
+{
 	activeBuilding.setZoneTitle(activeZone, newName);
+}
+else
+activeBuilding.setZoneTitle(activeZone, rename);	
 	//jComboBox1.removeAllItems();
 	//for (int i=0; i<activeBuilding.numZones(); i++)
 	//    jComboBox1.addItem(activeBuilding.getZoneTitle(i));
