@@ -498,9 +498,23 @@ public class Maxwell extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-}//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+	//GEN-FIRST:event_jButton1ActionPerformed
+
+	//calc current zone
+	activeBuilding.calc();
+	int num = activeBuilding.numZones();
+	//prompt user for name of new zone
+	String newname = "New Zone";
+	//add a new zone to building
+	activeBuilding.addZone(newname);
+	//add a new entry to zone dropdown
+	jComboBox1.addItem(newname);
+	jComboBox1.setSelectedIndex(num);
+	//refresh with info from new empty zone
+	activeZone = num;
+	refreshScreen();
+    }   //GEN-LAST:event_jButton1ActionPerformed
 
     /* REFRESH SCREEN FROM BUILDING/ZONE */
     public void refreshScreen() {
@@ -672,8 +686,7 @@ public class Maxwell extends javax.swing.JFrame {
 	jComboBox8.setSelectedIndex(0);
 	jComboBox9.setSelectedIndex(0);
 	jComboBox10.setSelectedIndex(0);
-
-    }   //GEN-LAST:event_jButton5ActionPerformed
+   }   //GEN-LAST:event_jButton5ActionPerformed
 
     /**
     * @param args the command line arguments
