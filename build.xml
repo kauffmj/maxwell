@@ -17,7 +17,7 @@
  with Maxwell.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<project>
+<project name="Maxwell" basedir=".">
   
   <!-- SETUP VARIABLES AND PATHS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -33,11 +33,12 @@
       <include name="lib/*.jar" />
     </fileset>
   </path>
-  <taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+  <!--<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />-->
 
   <!-- The classpath for building the system. -->
   <path id="build.classpath">
     <fileset dir="lib" includes="*.jar"/>
+    <fileset dir="build/classes"/>
   </path>
   
   <!-- TARGETS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -54,6 +55,19 @@
     <javac srcdir="src/" destdir="build/classes/" includeantruntime="false" debug="true" debuglevel="vars,lines,source">
       <classpath refid="build.classpath"/>
     </javac>
+  </target>
+
+  <!-- RUNNING TASK - "ant run" -->
+  <target name="run">
+    <java fork="true" classname="Maxwell">
+      <classpath>
+        <pathelement path="build/classes"/>
+        <pathelement path="lib/xstream-1.4.2.jar"/>
+        <pathelement path="lib/xmlpull-1.1.3.1.jar"/>
+        <pathelement path="lib/xpp3_min-1.1.4c.jar"/>
+        <pathelement path="lib/kxml2-min-2.3.0.jar"/>
+      </classpath>
+    </java>
   </target>
 
   <!-- JAR TASK - "ant jar" -->
