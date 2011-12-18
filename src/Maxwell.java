@@ -882,6 +882,8 @@ public class Maxwell extends javax.swing.JFrame {
 
     // "File -> Save" was clicked
     private void MenuSaveActionPerformed(java.awt.event.ActionEvent evt) {
+	setBuildingData();
+	setZoneData(activeZone);
 	JFileChooser c = new JFileChooser();
 	int rVal = c.showSaveDialog(Maxwell.this);
 	if (rVal == JFileChooser.APPROVE_OPTION) {
