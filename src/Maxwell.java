@@ -905,15 +905,8 @@ public class Maxwell extends javax.swing.JFrame {
     // "Help -> About" was clicked
     private void MenuAboutActionPerformed(java.awt.event.ActionEvent evt) {
 	System.out.println("Help -> About was clicked");
-	JFileChooser c = new JFileChooser();
-	int rVal = c.showOpenDialog(Maxwell.this);
-	if (rVal == JFileChooser.APPROVE_OPTION) {
-	    System.out.println("Approve was pressed, loading:\n" +
-			       c.getSelectedFile().getAbsolutePath());
-	}
-	if (rVal == JFileChooser.CANCEL_OPTION) {
-	    System.out.println("Cancel was pressed.  Loading of file stopped");
-	}
+	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
+	JOptionPane.showMessageDialog(frame,"About text", "About Maxwell",-1);	
     }
 
     // "Help -> Documentation" was clicked
