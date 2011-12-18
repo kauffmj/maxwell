@@ -858,19 +858,20 @@ public class Maxwell extends javax.swing.JFrame {
     // "File -> Open" was clicked
     private void MenuOpenActionPerformed(java.awt.event.ActionEvent evt) {
 	System.out.println("File -> Open was clicked");
-	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	String loadfile =JOptionPane.showInputDialog(frame,"Enter the job name that you wish to load:",null);
-	if (loadfile == null)
-	    System.out.println("User cancelled the open");
-	else {
-	    //deserialize the building to be loaded
-	    deserialize(loadfile + ".xml");
-	    activeBuilding.output();
-	    //refresh with info from loaded file
-	    activeZone = 0;
-	    refreshScreen();
+		JFileChooser c = new JFileChooser();
+		int rVal = c.showOpenDialog(Maxwell.this);
+		if (rVal == JFileChooser.APPROVE_OPTION) {
+			System.out.println("Approve was pressed, loading:\n" +
+							   c.getSelectedFile().getAbsolutePath());
+			deserialize(c.getSelectedFile().getAbsolutePath());
+			activeBuilding.output();
+			activeZone = 0;
+			refreshScreen();
+		}
+		if (rVal == JFileChooser.CANCEL_OPTION) {
+			System.out.println("Cancel was pressed.  Loading of file stopped");
+		}
 	}
-        System.out.println("end of method");}
 
     // "File -> Save" was clicked
     private void MenuSaveActionPerformed(java.awt.event.ActionEvent evt) {
