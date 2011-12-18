@@ -688,6 +688,8 @@ public class Maxwell extends javax.swing.JFrame {
 	jComboBox8.setSelectedIndex(temp[5]);
 	jComboBox9.setSelectedIndex(temp[6]);
 	jComboBox10.setSelectedIndex(temp[7]);
+	// refresh zone-dropdown
+	jComboBox1.setSelectedIndex(activeZone);
     }
 
     /* SEND BUILDING DESCRIPTIONS TO BUILDING OBJECT */
@@ -850,8 +852,13 @@ public class Maxwell extends javax.swing.JFrame {
 
     // "File -> New" was clicked
     private void MenuNewActionPerformed(java.awt.event.ActionEvent evt) {
+	refreshFlag = 0;
+	jComboBox1.removeAllItems();
 	activeBuilding = new Building();
 	activeZone = 0;
+	jComboBox1.addItem(activeBuilding.getZoneTitle(activeZone));
+	jComboBox1.setSelectedIndex(activeZone);
+	refreshFlag=1;
 	refreshScreen();
 	System.out.println("File -> New was clicked"); }
 
