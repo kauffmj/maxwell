@@ -15,7 +15,7 @@ public class Maxwell extends javax.swing.JFrame {
         initComponents();
     }
 
-    /** Surpress the deprecation warnings */
+    /** Suppress the deprecation warnings */
     @SuppressWarnings("checked")
 	
 	
