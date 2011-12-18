@@ -850,6 +850,9 @@ public class Maxwell extends javax.swing.JFrame {
 
     // "File -> New" was clicked
     private void MenuNewActionPerformed(java.awt.event.ActionEvent evt) {
+	activeBuilding = new Building();
+	activeZone = 0;
+	refreshScreen();
 	System.out.println("File -> New was clicked"); }
 
     // "File -> Open" was clicked
