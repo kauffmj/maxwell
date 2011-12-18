@@ -790,13 +790,13 @@ public class Maxwell extends javax.swing.JFrame {
     /*
      * SERIALIZE, USED TO SAVE - MAKES XML CODE FOR OBJECT
      */
-    public static void serialize(Building a){
+    public static void serialize(Building a, String file){
 	XStream xstream = new XStream();
 	xml = xstream.toXML(a);
 	//System.out.println(xml);
 	try{
-	    String jobname = a.getJobName();
-	    PrintWriter out = new PrintWriter(new FileWriter(jobname + ".xml"));
+	    //String jobname = a.getJobName();
+	    PrintWriter out = new PrintWriter(new FileWriter(file));
 	    out.println(xml);
 	    out.close();
 	}catch (Exception e){
@@ -882,9 +882,17 @@ public class Maxwell extends javax.swing.JFrame {
 
     // "File -> Save" was clicked
     private void MenuSaveActionPerformed(java.awt.event.ActionEvent evt) {
-	serialize(activeBuilding);
+	JFileChooser c = new JFileChooser();
+	int rVal = c.showSaveDialog(Maxwell.this);
+	if (rVal == JFileChooser.APPROVE_OPTION) {
+	    System.out.println("Approve was pressed, loading:\n" 
+			       + c.getSelectedFile().getAbsolutePath());
+	    serialize(activeBuilding,c.getSelectedFile().getAbsolutePath());
+	}
+	if (rVal == JFileChooser.CANCEL_OPTION) {
+	    System.out.println("Cancel was pressed.  Saving of file stopped");
+	}
 	System.out.println("File -> Save was clicked"); }
-
     // "File -> Print" was clicked
     private void MenuPrintActionPerformed(java.awt.event.ActionEvent evt) {
 	System.out.println("File -> Print was clicked"); }
