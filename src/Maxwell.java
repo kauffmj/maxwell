@@ -8,7 +8,11 @@
 
 import javax.swing.*;
 import java.awt.*;
+import com.thoughtworks.xstream.*;
+import java.io.*;
+
 public class Maxwell extends javax.swing.JFrame {
+    static String xml;
 
     /** Creates new form Maxwell */
     public Maxwell() {
@@ -781,6 +785,64 @@ public class Maxwell extends javax.swing.JFrame {
 	
     }
 
+    /*
+     * SERIALIZE, USED TO SAVE - MAKES XML CODE FOR OBJECT
+     */
+    public static void serialize(Building a){
+	XStream xstream = new XStream();
+	xml = xstream.toXML(a);
+	//System.out.println(xml);
+	try{
+	    String jobname = a.getJobName();
+	    PrintWriter out = new PrintWriter(new FileWriter(jobname + ".xml"));
+	    out.println(xml);
+	    out.close();
+	}catch (Exception e){
+	    System.err.println("There has been an error");
+	}
+    }
+	
+
+    private static String readFile(String fileName) {
+    
+	File file = new File(fileName);
+    
+	char[] buffer = null;
+    
+	try {
+	    BufferedReader bufferedReader = new BufferedReader(
+	        new FileReader(file));
+
+	    buffer = new char[(int)file.length()];
+
+	    int i = 0;
+	    int c = bufferedReader.read();
+
+	    while (c != -1) {
+		buffer[i++] = (char)c;
+		c = bufferedReader.read();
+	    }
+	} catch (FileNotFoundException e) {
+	    System.err.println("file not found");
+	} catch (IOException e) {
+	    System.err.println("oh noes");
+	}
+
+	return new String(buffer);
+    }
+
+	
+    /*
+     * DESERIALIZE, USED TO OPEN - MAKES OBJECT FROM XML CODE
+     */
+    public static void deserialize(String file){
+	XStream xstream = new XStream();
+	xml = readFile(file);
+	System.out.println(xml);
+	System.out.println("deserializing");
+	activeBuilding = (Building)xstream.fromXML(xml);
+    }
+
 
     /***************************************************************************
      *  MENU BAR CLICKS/INTERACTION
@@ -792,10 +854,24 @@ public class Maxwell extends javax.swing.JFrame {
 
     // "File -> Open" was clicked
     private void MenuOpenActionPerformed(java.awt.event.ActionEvent evt) {
-	System.out.println("File -> Open was clicked"); }
+	System.out.println("File -> Open was clicked");
+	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
+	String loadfile =JOptionPane.showInputDialog(frame,"Enter the job name that you wish to load:",null);
+	if (loadfile == null)
+	    System.out.println("User cancelled the open");
+	else {
+	    //deserialize the building to be loaded
+	    deserialize(loadfile + ".xml");
+	    activeBuilding.output();
+	    //refresh with info from loaded file
+	    activeZone = 0;
+	    refreshScreen();
+	}
+        System.out.println("end of method");}
 
     // "File -> Save" was clicked
     private void MenuSaveActionPerformed(java.awt.event.ActionEvent evt) {
+	serialize(activeBuilding);
 	System.out.println("File -> Save was clicked"); }
 
     // "File -> Print" was clicked
