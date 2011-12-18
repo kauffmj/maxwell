@@ -182,11 +182,7 @@
   <target name="cloc">
     <exec dir="." executable="perl">
       <arg value="tools/cloc-1.53.pl"/>
-      <arg value="src/algorithms"/>
-    </exec>
-    <exec dir="." executable="perl">
-      <arg value="tools/cloc-1.53.pl"/>
-      <arg value="src/tests"/>
+      <arg value="src/"/>
     </exec>
   </target>
 
