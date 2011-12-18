@@ -77,15 +77,17 @@
   
   <!-- RUN TASK - "ant test" (note: this runs all algorithm tests -->
   <target name="test">
-    <java classname="tests.AllTests">
-        <arg value="${testSuiteSubset}"/>
+    <java classname="AllTests">
         <classpath>
-	        <pathelement location="build/classes"/>
-	        <pathelement location="lib/junit-4.9.jar"/>
-	        <pathelement location="lib/hamcrest-all-1.3.0RC2.jar"/>
-	        <pathelement location="."/>
-        </classpath>
-    </java>
+          <pathelement path="build/classes"/>
+          <pathelement path="lib/xstream-1.4.2.jar"/>
+          <pathelement path="lib/xmlpull-1.1.3.1.jar"/>
+          <pathelement path="lib/xpp3_min-1.1.4c.jar"/>
+          <pathelement path="lib/kxml2-min-2.3.0.jar"/>
+          <pathelement path="lib/junit-4.9.jar"/>
+          <pathelement path="lib/hamcrest-all-1.3.0RC2.jar"/>
+        </classpath>  
+  </java>
   </target>
   
   
