@@ -72,7 +72,7 @@
 
   <!-- JAR TASK - "ant jar" -->
   <target name="jar">
-    <jar destfile="Maxwell.jar" basedir="build/classes"/>
+    <jar destfile="Maxwell.jar" basedir="build/classes" manifest="lib/MANIFEST.MF"/>
   </target>
   
   <!-- RUN TASK - "ant test" (note: this runs all algorithm tests -->
