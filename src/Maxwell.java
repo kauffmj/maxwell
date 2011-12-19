@@ -889,6 +889,12 @@ public class Maxwell extends javax.swing.JFrame {
 			deserialize(c.getSelectedFile().getAbsolutePath());
 			activeBuilding.output();
 			activeZone = 0;
+			refreshFlag = 0;
+			jComboBox1.removeAllItems();
+			for (int i=0; i<activeBuilding.numZones(); i++)
+			    jComboBox1.addItem(activeBuilding.getZoneTitle(i));
+			jComboBox1.setSelectedIndex(activeZone);
+			refreshFlag = 1;
 			refreshScreen();
 		}
 		if (rVal == JFileChooser.CANCEL_OPTION) {
