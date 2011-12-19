@@ -29,6 +29,7 @@ public class AllTests
 
         suite.addTestSuite(BuildingTest.class);
         suite.addTestSuite(RegionTest.class);
+        suite.addTestSuite(ZoneTest.class);
 
 	    return suite;
     }
