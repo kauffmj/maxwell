@@ -936,7 +936,7 @@ public class Maxwell extends javax.swing.JFrame {
     private void MenuAboutActionPerformed(java.awt.event.ActionEvent evt) {
 	System.out.println("Help -> About was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"About text", "About Maxwell",-1);	
+	JOptionPane.showMessageDialog(frame,"Maxwell is an application to calculate the heat gain and heat loss of \na building.  The information can be entered on a zone by zone or \nroom by room basis, or as a whole building.\n\nThis application was created by the CS290 Fall 2011 Software \nDevelopment class of Allegheny College. It is available for \ndownload under the New BSD License.  \nSpecial thanks to Tom Mattis for being our customer.\n\nCopyright (c) 2011, Allegheny College\nAll rights reserved.", "About",-1);	
     }
 
     // "Help -> Documentation" was clicked
