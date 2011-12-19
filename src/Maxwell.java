@@ -556,8 +556,18 @@ public class Maxwell extends javax.swing.JFrame {
 	//prompt user for name of new zone
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
 	String newname=JOptionPane.showInputDialog(frame,"New Zone Name:",null);
+	int wasUsed = 0;
+	for (int i=0; i<jComboBox1.getItemCount(); i++)
+	    if (newname.equals(jComboBox1.getItemAt(i)))
+		wasUsed++;
 	if (newname == null)
 	    System.out.println("User canceled new zone");
+	else if (wasUsed >0 ){
+	    System.out.println("User entered existing name, no zone added.");
+	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+	    JOptionPane.showMessageDialog(frame2,"Name in use already.",
+					  "Error",-1);	
+	}
 	else {
 	    //add a new zone to building
 	    activeBuilding.addZone(newname);
@@ -578,9 +588,9 @@ public class Maxwell extends javax.swing.JFrame {
 	    activeBuilding.rmZone(activeZone);
 	    jComboBox1.removeItemAt(activeZone);
 	}
-	refreshFlag=1;
 	activeZone = 0;
 	jComboBox1.setSelectedIndex(activeZone);
+	refreshFlag=1;
 	System.out.println("Active Zone: " + activeZone);
 	refreshScreen();
     }
@@ -589,10 +599,19 @@ public class Maxwell extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
 	String rename=JOptionPane.showInputDialog(frame,"New Name:",null);
-	if(rename == null)
-	    {
-		System.out.println("User entered no new name, no change was made");
-	    }
+	int wasUsed = 0;
+	for (int i=0; i<jComboBox1.getItemCount(); i++)
+	    if (rename.equals(jComboBox1.getItemAt(i)))
+		wasUsed++;
+	if (rename == null) {
+	    System.out.println("User entered no new name, no change was made");
+	}
+	else if (wasUsed >0 ){
+	    System.out.println("User entered existing name, no change made.");
+	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+	    JOptionPane.showMessageDialog(frame2,"Name in use already.",
+					  "Error",-1);	
+	}
 	else {
 	    refreshFlag = 0;
 	    activeBuilding.setZoneTitle(activeZone, rename);	
@@ -644,6 +663,9 @@ public class Maxwell extends javax.swing.JFrame {
 	jComboBox8.setSelectedIndex(0);
 	jComboBox9.setSelectedIndex(0);
 	jComboBox10.setSelectedIndex(0);
+	setZoneData(activeZone);     // NEWNEWNEW
+	activeBuilding.calc();       // NEWNEWNEW
+	refreshScreen();             // NEWNEWNEW
    }   //GEN-LAST:event_jButton5ActionPerformed
 
 
@@ -873,6 +895,12 @@ public class Maxwell extends javax.swing.JFrame {
 			deserialize(c.getSelectedFile().getAbsolutePath());
 			activeBuilding.output();
 			activeZone = 0;
+			refreshFlag = 0;
+			jComboBox1.removeAllItems();
+			for (int i=0; i<activeBuilding.numZones(); i++)
+			    jComboBox1.addItem(activeBuilding.getZoneTitle(i));
+			jComboBox1.setSelectedIndex(activeZone);
+			refreshFlag = 1;
 			refreshScreen();
 		}
 		if (rVal == JFileChooser.CANCEL_OPTION) {
