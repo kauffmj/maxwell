@@ -106,11 +106,10 @@ public class FirstPdf {
 		addEmptyLine(parThree, 4);
 		
 		
-		parThree.add(new Paragraph("Total Gain:  "));
-		parThree.add(new Paragraph(activeBuilding.getTotalGain()));
-		addEmptyLine(parThree, 1);
-		parThree.add(new Paragraph("Total Loss:  "));
-		parThree.add(new Paragraph(activeBuilding.getTotalLoss()));
+		parThree.add(new Paragraph("Total Gain:  " + activeBuilding.getTotalGain() ));
+		//addEmptyLine(parThree, 1);
+		parThree.add(new Paragraph("Total Loss:  "  +  activeBuilding.getTotalLoss() ));
+		
 
 		
 
