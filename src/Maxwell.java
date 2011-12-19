@@ -557,11 +557,18 @@ public class Maxwell extends javax.swing.JFrame {
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
 	String newname=JOptionPane.showInputDialog(frame,"New Zone Name:",null);
 	int wasUsed = 0;
-	for (int i=0; i<jComboBox1.getItemCount(); i++)
-	    if (newname.equals(jComboBox1.getItemAt(i)))
-		wasUsed++;
+	if (newname != null)
+	    for (int i=0; i<jComboBox1.getItemCount(); i++)
+		if (newname.equals(jComboBox1.getItemAt(i)))
+		    wasUsed++;
 	if (newname == null)
 	    System.out.println("User canceled new zone");
+	else if (newname.equals("")) {
+	    System.out.println("User entered no name, no change made.");
+	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+	    JOptionPane.showMessageDialog(frame2,"Name cannot be blank.",
+					  "Error",-1);	
+	}
 	else if (wasUsed >0 ){
 	    System.out.println("User entered existing name, no zone added.");
 	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
@@ -600,11 +607,17 @@ public class Maxwell extends javax.swing.JFrame {
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
 	String rename=JOptionPane.showInputDialog(frame,"New Name:",null);
 	int wasUsed = 0;
-	for (int i=0; i<jComboBox1.getItemCount(); i++)
-	    if (rename.equals(jComboBox1.getItemAt(i)))
-		wasUsed++;
-	if (rename == null) {
+	if (rename != null)
+	    for (int i=0; i<jComboBox1.getItemCount(); i++)
+		if (rename.equals(jComboBox1.getItemAt(i)))
+		    wasUsed++;
+	if (rename == null) 
 	    System.out.println("User entered no new name, no change was made");
+	else if (rename.equals("")) {
+	    System.out.println("User entered no name, no change made.");
+	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+	    JOptionPane.showMessageDialog(frame2,"Name cannot be blank.",
+					  "Error",-1);	
 	}
 	else if (wasUsed >0 ){
 	    System.out.println("User entered existing name, no change made.");
