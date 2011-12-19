@@ -126,7 +126,7 @@ public class FirstPdf {
 			
 			// Second parameter is the number of the chapter
 			
-			anchor = new Anchor("Zone" + zone, titleFont);
+			anchor = new Anchor(active.getZoneTitle(zone), titleFont);
 			anchor.setName("Heat Loss and Gain Calculator");
 			 catPart = new Chapter(new Paragraph(anchor), 1);
 			
