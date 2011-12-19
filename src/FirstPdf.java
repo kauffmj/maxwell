@@ -42,10 +42,10 @@ public class FirstPdf {
 	private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12,
 			Font.BOLD);
 
-	public static void go(Building activeBuilding){
+	public static void go(Building activeBuilding,String in){
 		try {
 			Document document = new Document(PageSize.LETTER.rotate());
-			PdfWriter.getInstance(document, new FileOutputStream(FILE));
+			PdfWriter.getInstance(document, new FileOutputStream(in));
 
 			document.open();
 
