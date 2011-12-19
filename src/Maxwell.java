@@ -564,6 +564,9 @@ public class Maxwell extends javax.swing.JFrame {
 	    System.out.println("User canceled new zone");
 	else if (wasUsed >0 ){
 	    System.out.println("User entered existing name, no zone added.");
+	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+	    JOptionPane.showMessageDialog(frame2,"Name in use already.",
+					  "Error",-1);	
 	}
 	else {
 	    //add a new zone to building
@@ -585,9 +588,9 @@ public class Maxwell extends javax.swing.JFrame {
 	    activeBuilding.rmZone(activeZone);
 	    jComboBox1.removeItemAt(activeZone);
 	}
-	refreshFlag=1;
 	activeZone = 0;
 	jComboBox1.setSelectedIndex(activeZone);
+	refreshFlag=1;
 	System.out.println("Active Zone: " + activeZone);
 	refreshScreen();
     }
@@ -605,6 +608,9 @@ public class Maxwell extends javax.swing.JFrame {
 	}
 	else if (wasUsed >0 ){
 	    System.out.println("User entered existing name, no change made.");
+	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+	    JOptionPane.showMessageDialog(frame2,"Name in use already.",
+					  "Error",-1);	
 	}
 	else {
 	    refreshFlag = 0;
