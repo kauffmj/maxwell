@@ -66,6 +66,9 @@ public class Building {
 	    zone.add(new Zone("Untitled Zone"));
     }
 
+    /** Suppress the deprecation warnings */
+    @SuppressWarnings("checked")
+
     public void addZone() {
 	zone.add(new Zone("Untitled Zone")); }
     public void addZone(String name) {

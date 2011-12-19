@@ -1,0 +1,17 @@
+Information about the files in this directory:
+
+ACTIVE FILES:
+Maxwell.java - Main class that runs our calculator and its GUI
+Building.java - Class representing Buildings with description and multiple Zones
+Region.java - Class that stores all the H/C multipliers for the active region
+Zone.java - Class representing a single Zone of measurements/calculations
+
+INACTIVE FILES:
+Demo.java - A class that is used sporadically for testing new code snippets
+guiEx.java - The original GUI, saved because the code is still very useful
+Region2.java - An experiment in loading Region data from an XML file
+regions.xml - An experimental file that can store data on many regions
+
+HELP/REFERENCE FILES:
+README - This file... you're reading it now.
+ZoneData.pdf - a cheat-sheet for understanding how Zones internally store data
