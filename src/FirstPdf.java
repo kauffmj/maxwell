@@ -103,12 +103,12 @@ public class FirstPdf {
 		parThree.add(new Paragraph("Notes:"));
 		addEmptyLine(parThree, 1);
 		parThree.add(new Paragraph(activeBuilding.getNotes()));
-		oddEmptyLine(parThree, 4);
+		addEmptyLine(parThree, 4);
 		
 		
 		parThree.add(new Paragraph("Total Gain:  "));
 		parThree.add(new Paragraph(activeBuilding.getTotalGain()));
-		oddEmptyLine(parThree, 1);
+		addEmptyLine(parThree, 1);
 		parThree.add(new Paragraph("Total Loss:  "));
 		parThree.add(new Paragraph(activeBuilding.getTotalLoss()));
 
@@ -254,7 +254,7 @@ public class FirstPdf {
 		table.addCell("Appliance");
 		table.addCell("  ");
 		table.addCell(""+active.getZoneData(z,11, 3));
-		table.addCell();
+		table.addCell("  ");
 		
 		table.addCell("-----------");
 		table.addCell("-----------");
