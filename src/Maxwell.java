@@ -117,7 +117,7 @@ public class Maxwell extends javax.swing.JFrame {
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    MenuSaveActionPerformed(evt); } });
 	// File->Print Menu item and actionListener
-	MenuPrint = new javax.swing.JMenuItem("Print");
+	MenuPrint = new javax.swing.JMenuItem("Print to PDF");
 	MenuPrint.addActionListener(new java.awt.event.ActionListener() {
 		public void actionPerformed(java.awt.event.ActionEvent evt) {
 		    MenuPrintActionPerformed(evt); } });
