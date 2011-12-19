@@ -81,6 +81,23 @@
     <jar destfile="Maxwell.jar" basedir="build/classes" manifest="lib/MANIFEST.MF"/>
   </target>
   
+  <!--JAR ALL TASK - "ant jar-all" -->
+  <target name="jar-all">
+    <jar id="files" jarfile="all.jar" manifest="lib/MANIFEST.MF">
+      <zipfileset src="Maxwell.jar"/>
+      <zipfileset src="lib/xstream-1.4.2.jar"/>
+      <zipfileset src="lib/xmlpull-1.1.3.1.jar"/>
+      <zipfileset src="lib/xpp3_min-1.1.4c.jar"/>
+      <zipfileset src="lib/kxml2-min-2.3.0.jar"/>
+      <zipfileset src="lib/itextpdf-5.1.3.jar"/>
+      <zipfileset src="lib/itextpdf-5.1.3-javadoc.jar"/>
+      <zipfileset src="lib/itextpdf-5.1.3-sources.jar"/>
+      <zipfileset src="lib/itext-xtra-5.1.3.jar"/>
+      <zipfileset src="lib/itext-xtra-5.1.3-javadoc.jar"/>
+      <zipfileset src="lib/itext-xtra-5.1.3-sources.jar"/>
+    </jar>
+  </target>
+  
   <!-- RUN TASK - "ant test" (note: this runs all algorithm tests -->
   <target name="test">
     <java classname="AllTests">
