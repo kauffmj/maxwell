@@ -25,6 +25,7 @@ public class Maxwell extends javax.swing.JFrame {
 	
     /** Initialize all of the GUI Components */
     private void initComponents() {
+	super.setTitle("Maxwell - Calculator");
         jLabel1 = new javax.swing.JLabel();          // "Job Name:" label
         jTextField1 = new javax.swing.JTextField();  // JobName box
         jLabel2 = new javax.swing.JLabel();          // "Job Number:" label
@@ -901,6 +902,8 @@ public class Maxwell extends javax.swing.JFrame {
     private void MenuOpenActionPerformed(java.awt.event.ActionEvent evt) {
 	System.out.println("File -> Open was clicked");
 		JFileChooser c = new JFileChooser();
+		c.setAcceptAllFileFilterUsed(false);
+		c.addChoosableFileFilter(new xmlFilter());
 		int rVal = c.showOpenDialog(Maxwell.this);
 		if (rVal == JFileChooser.APPROVE_OPTION) {
 			System.out.println("Approve was pressed, loading:\n" +
@@ -926,28 +929,44 @@ public class Maxwell extends javax.swing.JFrame {
 	setBuildingData();
 	setZoneData(activeZone);
 	JFileChooser c = new JFileChooser();
+	c.setAcceptAllFileFilterUsed(false);
+	c.addChoosableFileFilter(new xmlFilter());
 	int rVal = c.showSaveDialog(Maxwell.this);
 	if (rVal == JFileChooser.APPROVE_OPTION) {
-	    System.out.println("Approve was pressed, loading:\n" 
-			       + c.getSelectedFile().getAbsolutePath());
-	    serialize(activeBuilding,c.getSelectedFile().getAbsolutePath());
+	    String filename = c.getSelectedFile().getAbsolutePath();
+	    if (filename.endsWith(".xml") || filename.endsWith(".XML"))
+		System.out.println("User specified XML suffix.");
+	    else {
+		System.out.println("User did not specify XML Suffix.");
+		filename = filename + ".xml";
+	    }
+	    System.out.println("Approve was pressed, loading: " + filename); 
+	    serialize(activeBuilding,filename);
 	}
 	if (rVal == JFileChooser.CANCEL_OPTION) {
 	    System.out.println("Cancel was pressed.  Saving of file stopped");
 	}
 	System.out.println("File -> Save was clicked"); }
+    
     // "File -> Print" was clicked
     private void MenuPrintActionPerformed(java.awt.event.ActionEvent evt) {
 	System.out.println("File -> Print was clicked"); 
 	setBuildingData();
 	setZoneData(activeZone);
 	JFileChooser c = new JFileChooser();
+	c.setAcceptAllFileFilterUsed(false);
+	c.addChoosableFileFilter(new pdfFilter());
 	int rVal = c.showSaveDialog(Maxwell.this);
 	if (rVal == JFileChooser.APPROVE_OPTION) {
-	    System.out.println("Approve was pressed, saving:\n" 
-			       + c.getSelectedFile().getAbsolutePath());
-	    FirstPdf.go(activeBuilding,
-			(c.getSelectedFile().getAbsolutePath() + ".pdf"));
+	    String filename = c.getSelectedFile().getAbsolutePath();
+	    if (filename.endsWith(".pdf") || filename.endsWith(".PDF"))
+		System.out.println("User specified PDF suffix.");
+	    else {
+		    System.out.println("User did not specify PDF Suffix.");
+		    filename = filename + ".pdf";
+		}
+	    System.out.println("Approve was pressed, saving PDF:\n" + filename);
+	    FirstPdf.go(activeBuilding, filename);
 	}
 	if (rVal == JFileChooser.CANCEL_OPTION) {
 	    System.out.println("Cancel was pressed.  Saving of file stopped");
@@ -971,7 +990,7 @@ public class Maxwell extends javax.swing.JFrame {
 	//String help = readFile("helpdocumentation.txt");
 	System.out.println("Help -> Documentation was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"**IMPORTANT**\nYOU MUST INCLUDE THE \".xml\" EXTENSION WHEN SAVING.\n\n-The Calculate button updates the Zone Gain, Zone Loss, Total Gain and Total loss fields. \n Updating the input fields and pressing Calculate again will update the gain and loss \nfields based on the new inputs.\n\nZONE FUNCTIONS\n-Rename the current zone by clicking Rename and entering the name you wish for the zone.\n-Add a new zone by clicking the Add New button and entering the name for the new zone.\n-Clear the contents of a zone's input fields by clicking the Clear Zone button. This will not \ndelete the entire zone.  It will only clear its contents.\n-Delete a zone by clicking the Delete button.\n\nBUILDING FUNCTIONS\n-Create a new job by clicking File->New.  A new blank job will appear.\n-Open an existing builidng or job by clicking File->Open and navigating to the .xml file that \nyou wish to open.\n-Save the current job by clicking File->Save and navigating to the directory where the job \nshould be saved.  Type a name for the file.  YOU MUST INCLUDE THE \".xml\" EXTENSION.\n-To exit the program, click File->Exit or click the X button as you would any other window.", 
+	JOptionPane.showMessageDialog(frame,"The Calculate button updates the Zone Gain, Zone Loss, Total Gain and Total loss fields. \n Updating the input fields and pressing Calculate again will update the gain and loss \nfields based on the new inputs.\n\nZONE FUNCTIONS\n-Rename the current zone by clicking Rename and entering the name you wish for the zone.\n-Add a new zone by clicking the Add New button and entering the name for the new zone.\n-Clear the contents of a zone's input fields by clicking the Clear Zone button. This will not \ndelete the entire zone.  It will only clear its contents.\n-Delete a zone by clicking the Delete button.\n\nBUILDING FUNCTIONS\n-Create a new job by clicking File->New.  A new blank job will appear.\n-Open an existing builidng or job by clicking File->Open and navigating to the .xml file that \nyou wish to open.\n-Save the current job by clicking File->Save and navigating to the directory where the job \nshould be saved.  Type a name for the file.  YOU MUST INCLUDE THE \".xml\" EXTENSION.\n-To exit the program, click File->Exit or click the X button as you would any other window.", 
 				      "Documentation",-1);	
     }
 
@@ -1083,4 +1102,35 @@ public class Maxwell extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
     // END OF GLOBAL VARIABLES/OBJECTS
 
+}
+
+
+/** FILTER CLASSES FOR FILEOPEN/FILESAVE DIALOG BOXES **/
+
+// XML filter
+class xmlFilter extends javax.swing.filechooser.FileFilter {
+    public boolean accept(File file) {
+	if (file.isDirectory()) {
+	    return true;
+	}
+        String filename = file.getName();
+        return (filename.endsWith(".xml") || filename.endsWith(".XML"));
+    }
+    public String getDescription() {
+        return "Building File (.xml)";
+    }
+}
+
+// PDF FILTER
+class pdfFilter extends javax.swing.filechooser.FileFilter {
+    public boolean accept(File file) {
+	if (file.isDirectory()) {
+	    return true;
+	}
+        String filename = file.getName();
+        return (filename.endsWith(".pdf") || filename.endsWith(".PDF"));
+    }
+    public String getDescription() {
+        return "PDF Document (.pdf)";
+    }
 }
