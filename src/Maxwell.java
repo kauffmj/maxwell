@@ -913,9 +913,10 @@ public class Maxwell extends javax.swing.JFrame {
 
     // "Help -> Documentation" was clicked
     private void MenuDocumentationActionPerformed(java.awt.event.ActionEvent evt) {
+	String help = readFile("/doc/helpdocumentation");
 	System.out.println("Help -> Documentation was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"Documentation contents", 
+	JOptionPane.showMessageDialog(frame, help, 
 				      "Documentation",-1);	
     }
 
