@@ -19,6 +19,12 @@
     <maxVersion>1.8.9</maxVersion>
     <jdkPreference>preferJre</jdkPreference>
   </jre>
+  <splash>
+    <file>maxwellsplash.bmp</file>
+    <waitForWindow>true</waitForWindow>
+    <timeout>5</timeout>
+    <timeoutErr>false</timeoutErr>
+  </splash>
   <versionInfo>
     <fileVersion>1.1.0.0</fileVersion>
     <txtFileVersion>Release 1.1</txtFileVersion>
