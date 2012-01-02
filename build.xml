@@ -47,6 +47,7 @@
   <target name="clean">
     <delete dir="build"/>
     <delete file="Maxwell.jar"/>
+    <delete file="Maxwell_All.jar"/>
     <delete file="Maxwell.exe"/>
   </target>
 
@@ -78,15 +79,14 @@
   </target>
 
   <!-- JAR TASK - "ant jar" -->
-  <!-- <target name="jar"> -->
-  <!--   <delete file="Maxwell.jar"/> -->
-  <!--   <jar destfile="Maxwell.jar" basedir="build/classes" manifest="lib/MANIFEST.MF"/> -->
-  <!-- </target> -->
-  
-  <!--JAR ALL TASK - "ant jar" -->
   <target name="jar">
     <delete file="Maxwell.jar"/>
-    <jar id="files" jarfile="Maxwell.jar" manifest="lib/MANIFEST.MF">
+    <jar destfile="Maxwell.jar" basedir="build/classes" manifest="lib/MANIFEST.MF"/>
+  </target>
+  
+  <!--JAR ALL TASK - "ant jar" -->
+  <target name="jar-all">
+    <jar id="files" jarfile="Maxwell_All.jar" manifest="lib/MANIFEST.MF">
       <zipfileset src="Maxwell.jar"/>
       <zipfileset src="lib/xstream-1.4.2.jar"/>
       <zipfileset src="lib/xmlpull-1.1.3.1.jar"/>

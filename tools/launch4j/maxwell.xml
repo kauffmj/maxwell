@@ -1,7 +1,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>../../Maxwell.jar</jar>
+  <jar>../../Maxwell_All.jar</jar>
   <outfile>../../Maxwell.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
