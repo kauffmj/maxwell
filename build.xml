@@ -47,6 +47,7 @@
   <target name="clean">
     <delete dir="build"/>
     <delete file="Maxwell.jar"/>
+    <delete file="Maxwell.exe"/>
   </target>
 
   <!-- COMPILING TASK - "ant compile" -->  
