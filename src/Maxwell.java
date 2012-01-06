@@ -538,8 +538,9 @@ public class Maxwell extends javax.swing.JFrame {
 	    setZoneData(activeZone);
 	    storeData();
 	    activeBuilding.calc();
-	    System.out.println("Zone changed to: " + 
-			       jComboBox1.getSelectedIndex());
+	    if (debugmode)
+		System.out.println("Zone changed to: " + 
+				   jComboBox1.getSelectedIndex());
 	    activeZone = jComboBox1.getSelectedIndex();
 	    refreshScreen();
 	}
@@ -562,16 +563,20 @@ public class Maxwell extends javax.swing.JFrame {
 	    for (int i=0; i<jComboBox1.getItemCount(); i++)
 		if (newname.equals(jComboBox1.getItemAt(i)))
 		    wasUsed++;
-	if (newname == null)
-	    System.out.println("User canceled new zone");
+	if (newname == null) {
+	    if (debugmode)
+		System.out.println("User canceled new zone");
+	}
 	else if (newname.equals("")) {
-	    System.out.println("User entered no name, no change made.");
+	    if (debugmode)
+		System.out.println("User entered no name, no change made.");
 	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
 	    JOptionPane.showMessageDialog(frame2,"Name cannot be blank.",
 					  "Error",-1);	
 	}
 	else if (wasUsed >0 ){
-	    System.out.println("User entered existing name, no zone added.");
+	    if (debugmode)
+		System.out.println("Entered existing name, no zone added.");
 	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
 	    JOptionPane.showMessageDialog(frame2,"Name in use already.",
 					  "Error",-1);	
@@ -587,10 +592,11 @@ public class Maxwell extends javax.swing.JFrame {
 	    refreshScreen();
 	}
     }   //GEN-LAST:event_jButton1ActionPerformed
-
+    
     /* DELETE ZONE BUTTON PRESSED */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-	System.out.println("Deleting Zone: " + activeZone);
+	if (debugmode)
+	    System.out.println("Deleting Zone: " + activeZone);
 	refreshFlag=0;
 	if (activeBuilding.numZones() > 1) {
 	    activeBuilding.rmZone(activeZone);
@@ -599,7 +605,8 @@ public class Maxwell extends javax.swing.JFrame {
 	activeZone = 0;
 	jComboBox1.setSelectedIndex(activeZone);
 	refreshFlag=1;
-	System.out.println("Active Zone: " + activeZone);
+	if (debugmode)
+	    System.out.println("Active Zone: " + activeZone);
 	refreshScreen();
     }
 
@@ -612,16 +619,20 @@ public class Maxwell extends javax.swing.JFrame {
 	    for (int i=0; i<jComboBox1.getItemCount(); i++)
 		if (rename.equals(jComboBox1.getItemAt(i)))
 		    wasUsed++;
-	if (rename == null) 
-	    System.out.println("User entered no new name, no change was made");
+	if (rename == null)  {
+	    if (debugmode)
+		System.out.println("No new name entered, no change was made");
+	}
 	else if (rename.equals("")) {
-	    System.out.println("User entered no name, no change made.");
+	    if (debugmode)
+		System.out.println("User entered no name, no change made.");
 	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
 	    JOptionPane.showMessageDialog(frame2,"Name cannot be blank.",
 					  "Error",-1);	
 	}
 	else if (wasUsed >0 ){
-	    System.out.println("User entered existing name, no change made.");
+	    if (debugmode)
+		System.out.println("Entered existing name, no change made.");
 	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
 	    JOptionPane.showMessageDialog(frame2,"Name in use already.",
 					  "Error",-1);	
@@ -640,9 +651,7 @@ public class Maxwell extends javax.swing.JFrame {
     /* CALCULATE BUTTON WAS PRESSED */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton4ActionPerformed
-	
 	storeData();
-	
 	region = activeBuilding.getRegion();
 	setZoneData(activeZone);
 	activeBuilding.calc();
@@ -651,7 +660,8 @@ public class Maxwell extends javax.swing.JFrame {
 	jTextField20.setText("" + activeBuilding.getTotalGain());
 	jTextField19.setText("" + activeBuilding.getTotalLoss());
 	// PRINT FOR DEBUGGING
-	activeBuilding.output();
+	if (debugmode)
+	    activeBuilding.output();
     }   //GEN-LAST:event_jButton4ActionPerformed
 
     /* CLEAR BUTTON WAS PRESSED */
@@ -842,20 +852,14 @@ public class Maxwell extends javax.swing.JFrame {
 	
 
     private static String readFile(String fileName) {
-    
-	File file = new File(fileName);
-    
-	char[] buffer = null;
-    
-	try {
+    	File file = new File(fileName);
+    	char[] buffer = null;
+    	try {
 	    BufferedReader bufferedReader = new BufferedReader(
-	        new FileReader(file));
-
+							  new FileReader(file));
 	    buffer = new char[(int)file.length()];
-
 	    int i = 0;
 	    int c = bufferedReader.read();
-
 	    while (c != -1) {
 		buffer[i++] = (char)c;
 		c = bufferedReader.read();
@@ -865,7 +869,6 @@ public class Maxwell extends javax.swing.JFrame {
 	} catch (IOException e) {
 	    System.err.println("oh noes");
 	}
-
 	return new String(buffer);
     }
 
@@ -876,8 +879,9 @@ public class Maxwell extends javax.swing.JFrame {
     public static void deserialize(String file){
 	XStream xstream = new XStream();
 	xml = readFile(file);
-	System.out.println(xml);
-	System.out.println("deserializing");
+	if (debugmode) {
+	    System.out.println(xml);
+	    System.out.println("deserializing"); }
 	activeBuilding = (Building)xstream.fromXML(xml);
     }
 
@@ -896,34 +900,40 @@ public class Maxwell extends javax.swing.JFrame {
 	jComboBox1.setSelectedIndex(activeZone);
 	refreshFlag=1;
 	refreshScreen();
-	System.out.println("File -> New was clicked"); }
+	if (debugmode)
+	    System.out.println("File -> New was clicked"); 
+    }
 
     // "File -> Open" was clicked
     private void MenuOpenActionPerformed(java.awt.event.ActionEvent evt) {
-	System.out.println("File -> Open was clicked");
-		JFileChooser c = new JFileChooser();
-		c.setAcceptAllFileFilterUsed(false);
-		c.addChoosableFileFilter(new xmlFilter());
-		int rVal = c.showOpenDialog(Maxwell.this);
-		if (rVal == JFileChooser.APPROVE_OPTION) {
-			System.out.println("Approve was pressed, loading:\n" +
-							   c.getSelectedFile().getAbsolutePath());
-			deserialize(c.getSelectedFile().getAbsolutePath());
-			activeBuilding.output();
-			activeZone = 0;
-			refreshFlag = 0;
-			jComboBox1.removeAllItems();
-			for (int i=0; i<activeBuilding.numZones(); i++)
-			    jComboBox1.addItem(activeBuilding.getZoneTitle(i));
-			jComboBox1.setSelectedIndex(activeZone);
-			refreshFlag = 1;
-			refreshScreen();
-		}
-		if (rVal == JFileChooser.CANCEL_OPTION) {
-			System.out.println("Cancel was pressed.  Loading of file stopped");
-		}
+	if (debugmode)
+	    System.out.println("File -> Open was clicked");
+	JFileChooser c = new JFileChooser();
+	c.setAcceptAllFileFilterUsed(false);
+	c.addChoosableFileFilter(new xmlFilter());
+	int rVal = c.showOpenDialog(Maxwell.this);
+	if (rVal == JFileChooser.APPROVE_OPTION) {
+	    if (debugmode)
+		System.out.println("Approve was pressed, loading:\n" +
+				   c.getSelectedFile().getAbsolutePath());
+	    deserialize(c.getSelectedFile().getAbsolutePath());
+	    if (debugmode)
+		activeBuilding.output();
+	    activeZone = 0;
+	    refreshFlag = 0;
+	    jComboBox1.removeAllItems();
+	    for (int i=0; i<activeBuilding.numZones(); i++)
+		jComboBox1.addItem(activeBuilding.getZoneTitle(i));
+	    jComboBox1.setSelectedIndex(activeZone);
+	    refreshFlag = 1;
+	    refreshScreen();
 	}
-
+	if (rVal == JFileChooser.CANCEL_OPTION) {
+	    if (debugmode)
+		System.out.println("Cancel pressed.  Loading of file stopped");
+	}
+    }
+    
     // "File -> Save" was clicked
     private void MenuSaveActionPerformed(java.awt.event.ActionEvent evt) {
 	setBuildingData();
@@ -934,23 +944,31 @@ public class Maxwell extends javax.swing.JFrame {
 	int rVal = c.showSaveDialog(Maxwell.this);
 	if (rVal == JFileChooser.APPROVE_OPTION) {
 	    String filename = c.getSelectedFile().getAbsolutePath();
-	    if (filename.endsWith(".xml") || filename.endsWith(".XML"))
-		System.out.println("User specified XML suffix.");
+	    if (filename.endsWith(".xml") || filename.endsWith(".XML")) {
+		if (debugmode)
+		    System.out.println("User specified XML suffix.");
+	    }
 	    else {
-		System.out.println("User did not specify XML Suffix.");
+		if (debugmode)
+		    System.out.println("User did not specify XML Suffix.");
 		filename = filename + ".xml";
 	    }
-	    System.out.println("Approve was pressed, loading: " + filename); 
+	    if (debugmode)
+		System.out.println("Approve pressed, loading: " + filename); 
 	    serialize(activeBuilding,filename);
 	}
 	if (rVal == JFileChooser.CANCEL_OPTION) {
-	    System.out.println("Cancel was pressed.  Saving of file stopped");
+	    if (debugmode)
+		System.out.println("Cancel pressed.  Saving of file stopped");
 	}
-	System.out.println("File -> Save was clicked"); }
+	if (debugmode)
+	    System.out.println("File -> Save was clicked"); 
+    }
     
     // "File -> Print" was clicked
     private void MenuPrintActionPerformed(java.awt.event.ActionEvent evt) {
-	System.out.println("File -> Print was clicked"); 
+	if (debugmode)
+	    System.out.println("File -> Print was clicked"); 
 	setBuildingData();
 	setZoneData(activeZone);
 	JFileChooser c = new JFileChooser();
@@ -959,36 +977,44 @@ public class Maxwell extends javax.swing.JFrame {
 	int rVal = c.showSaveDialog(Maxwell.this);
 	if (rVal == JFileChooser.APPROVE_OPTION) {
 	    String filename = c.getSelectedFile().getAbsolutePath();
-	    if (filename.endsWith(".pdf") || filename.endsWith(".PDF"))
-		System.out.println("User specified PDF suffix.");
+	    if (filename.endsWith(".pdf") || filename.endsWith(".PDF")) {
+		if (debugmode)
+		    System.out.println("User specified PDF suffix.");
+	    }
 	    else {
+		if (debugmode)
 		    System.out.println("User did not specify PDF Suffix.");
-		    filename = filename + ".pdf";
-		}
-	    System.out.println("Approve was pressed, saving PDF:\n" + filename);
+		filename = filename + ".pdf";
+	    }
+	    if (debugmode)
+		System.out.println("Approve was pressed, saving: " + filename);
 	    FirstPdf.go(activeBuilding, filename);
 	}
 	if (rVal == JFileChooser.CANCEL_OPTION) {
-	    System.out.println("Cancel was pressed.  Saving of file stopped");
+	    if (debugmode)
+		System.out.println("Cancel pressed.  Saving of file stopped");
 	}
     }
-
+    
     // "File -> Exit" was clicked
     private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {
-	System.out.println("File -> Exit was clicked... goodbye!");
+	if (debugmode)
+	    System.out.println("File -> Exit was clicked... goodbye!");
 	System.exit(0); }
-
+    
     // "Help -> About" was clicked
     private void MenuAboutActionPerformed(java.awt.event.ActionEvent evt) {
-	System.out.println("Help -> About was clicked");
+	if (debugmode)
+	    System.out.println("Help -> About was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"Maxwell is an application to calculate the heat gain and heat loss of \na building.  The information can be entered on a zone by zone or \nroom by room basis, or as a whole building.\n\nThis application was created by the CS290 Fall 2011 Software \nDevelopment class of Allegheny College. It is available for \ndownload under the New BSD License.  \nSpecial thanks to Tom Mattis for being our customer.\n\nCopyright (c) 2011, Allegheny College\nAll rights reserved.", "About",-1);	
+	JOptionPane.showMessageDialog(frame,"Maxwell is an application to calculate the heat gain and heat loss of \na building.  The information can be entered on a zone by zone or \nroom by room basis, or as a whole building.\n\nThis application was created by the CS290 Fall 2011 Software \nDevelopment class of Allegheny College. It is available for \ndownload under the New BSD License.  \nSpecial thanks to Tom Mattis for being our customer.\n\nCopyright (c) 2012, Allegheny College\nAll rights reserved.", "About",-1);	
     }
-
+    
     // "Help -> Documentation" was clicked
     private void MenuDocumentationActionPerformed(java.awt.event.ActionEvent evt) {
 	//String help = readFile("helpdocumentation.txt");
-	System.out.println("Help -> Documentation was clicked");
+	if (debugmode)
+	    System.out.println("Help -> Documentation was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
 	JOptionPane.showMessageDialog(frame,"The Calculate button updates the Zone Gain, Zone Loss, Total Gain and Total loss fields. \n Updating the input fields and pressing Calculate again will update the gain and loss \nfields based on the new inputs.\n\nZONE FUNCTIONS\n-Rename the current zone by clicking Rename and entering the name you wish for the zone.\n-Add a new zone by clicking the Add New button and entering the name for the new zone.\n-Clear the contents of a zone's input fields by clicking the Clear Zone button. This will not \ndelete the entire zone.  It will only clear its contents.\n-Delete a zone by clicking the Delete button.\n\nBUILDING FUNCTIONS\n-Create a new job by clicking File->New.  A new blank job will appear.\n-Open an existing builidng or job by clicking File->Open and navigating to the .xml file that \nyou wish to open.\n-Save the current job by clicking File->Save and navigating to the directory where the job \nshould be saved.  Type a name for the file.\n-To exit the program, click File->Exit or click the X button as you would any other window.", 
 				      "Documentation",-1);	
@@ -1006,7 +1032,13 @@ public class Maxwell extends javax.swing.JFrame {
         });
 	activeBuilding =  new Building();
 	activeZone = 0;
-	System.out.println("Testing!");
+	for (int i=0; i < args.length; i++) {
+	    if (args[i].equals("debug")) {
+		debugmode = true;
+	    }
+	}
+	if (debugmode)
+	    System.out.println("Testing!");
     }
 
     /***************************************************************************
@@ -1016,6 +1048,7 @@ public class Maxwell extends javax.swing.JFrame {
     private static Building activeBuilding; //Building object we're working with
     private static int activeZone; // the index of the current zone
     private static int refreshFlag = 1; // controls whether/not refreshing works
+    private static boolean debugmode = false;
     // ALL OF THE LABELS/BUTTONS/DROPDOWNS/ETC
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

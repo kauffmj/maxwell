@@ -25,7 +25,9 @@
   <property name="lib.dir" value="lib"/>
   <!-- Directories and classpaths for Cobertura's various tasks. -->
   <property name="cobertura.dir" value="tools/cobertura-1.9.4.1" />
-
+  <!-- Current working version information. -->
+  <property file="config" prefix="working"/>  
+  
   <!-- Classpath setting needed to run Cobertura. -->
   <path id="cobertura.classpath">
     <fileset dir="${cobertura.dir}">
@@ -46,9 +48,10 @@
   <!-- CLEANING TASK - "ant clean" -->
   <target name="clean">
     <delete dir="build"/>
-    <delete file="Maxwell.jar"/>
-    <delete file="Maxwell_All.jar"/>
-    <delete file="Maxwell.exe"/>
+    <delete>
+      <fileset dir="." includes="Maxwell*.jar"/>
+      <fileset dir="." includes="Maxwell*.exe"/>
+    </delete>
   </target>
 
   <!-- COMPILING TASK - "ant compile" -->  
@@ -69,23 +72,32 @@
         <pathelement path="lib/xpp3_min-1.1.4c.jar"/>
         <pathelement path="lib/kxml2-min-2.3.0.jar"/>
         <pathelement path="lib/itextpdf-5.1.3.jar"/>
-        <pathelement path="lib/itextpdf-5.1.3-javadoc.jar"/>
-        <pathelement path="lib/itextpdf-5.1.3-sources.jar"/>
         <pathelement path="lib/itext-xtra-5.1.3.jar"/>
-        <pathelement path="lib/itext-xtra-5.1.3-javadoc.jar"/>
-        <pathelement path="lib/itext-xtra-5.1.3-sources.jar"/>
       </classpath>
     </java>
   </target>
 
-  <!-- JAR TASK - "ant jar" -->
+  <!-- DEBUG TASK - "ant debug" -->
+  <target name="debug">
+    <java fork="true" classname="Maxwell">
+      <classpath>
+        <pathelement path="build/classes"/>
+        <pathelement path="lib/xstream-1.4.2.jar"/>
+        <pathelement path="lib/xmlpull-1.1.3.1.jar"/>
+        <pathelement path="lib/xpp3_min-1.1.4c.jar"/>
+        <pathelement path="lib/kxml2-min-2.3.0.jar"/>
+        <pathelement path="lib/itextpdf-5.1.3.jar"/>
+        <pathelement path="lib/itext-xtra-5.1.3.jar"/>
+      </classpath>
+      <arg value="debug"/>
+    </java>
+  </target>
+
+  <!--JAR TASK - "ant jar" -->
   <target name="jar">
     <delete file="Maxwell.jar"/>
     <jar destfile="Maxwell.jar" basedir="build/classes" manifest="lib/MANIFEST.MF"/>
-  </target>
-  
-  <!--JAR ALL TASK - "ant jar" -->
-  <target name="jar-all">
+    <property file="config" prefix="working"/>
     <jar id="files" jarfile="Maxwell_All.jar" manifest="lib/MANIFEST.MF">
       <zipfileset src="Maxwell.jar"/>
       <zipfileset src="lib/xstream-1.4.2.jar"/>
@@ -93,12 +105,10 @@
       <zipfileset src="lib/xpp3_min-1.1.4c.jar"/>
       <zipfileset src="lib/kxml2-min-2.3.0.jar"/>
       <zipfileset src="lib/itextpdf-5.1.3.jar"/>
-      <zipfileset src="lib/itextpdf-5.1.3-javadoc.jar"/>
-      <zipfileset src="lib/itextpdf-5.1.3-sources.jar"/>
       <zipfileset src="lib/itext-xtra-5.1.3.jar"/>
-      <zipfileset src="lib/itext-xtra-5.1.3-javadoc.jar"/>
-      <zipfileset src="lib/itext-xtra-5.1.3-sources.jar"/>
     </jar>
+    <delete file="Maxwell.jar"/>
+    <move file="Maxwell_All.jar" tofile="Maxwell.jar"/>
   </target>
   
   <!-- TEST TASK - "ant test" (note: this runs all test suite tests) -->
@@ -120,13 +130,30 @@
   <!-- LAUNCH4J'S TASKS~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
 
   <target name="launch4j">
+    <property file="config" prefix="working"/>
     <delete file="Maxwell.exe"/>
     <exec dir="." executable="bash">
       <arg value="./tools/launch4j/launch4j" />
       <arg value="maxwell.xml" />
     </exec>
   </target>
+
+
+  <!-- SHIPPING TASKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
   
+  <target name="version">
+    <echo message="Maxwell - Heat Gain/Loss Calculator"/>
+    <echo message="Version ${working.version} (${working.long})"/>
+    <echo message="${working.title} - Copyright ${working.year}"/>
+  </target>
+
+  <target name="ship" depends="clean,compile,jar,prepl4j,launch4j">
+    <delete dir="build/"/>
+    <move file="Maxwell.jar" tofile="Maxwell${working.version}.jar"/>
+    <move file="Maxwell.exe" tofile="Maxwell${working.version}.exe"/>
+  </target>
+
+
   <!-- CLOC'S TASKS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
  
   <!-- CLOC TASK - "ant cloc" -->
@@ -137,4 +164,55 @@
     </exec>
   </target>
 
+
+  <!-- HELPER TASKS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+  <!-- PREPARE LAUNCH4J - "ant prepl4j" -->
+  <target name="prepl4j">
+    <echo message="Generating Launch4J XML..."/>
+    <echoxml file="tools/launch4j/maxwell.xml">
+      <launch4jConfig>
+	<dontWrapJar>false</dontWrapJar>
+	<headerType>gui</headerType>
+	<jar>../../Maxwell.jar</jar>
+	<outfile>../../Maxwell.exe</outfile>
+	<errTitle></errTitle>
+	<cmdLine></cmdLine>
+	<chdir></chdir>
+	<priority>normal</priority>
+	<downloadUrl>http://java.com/download</downloadUrl>
+	<supportUrl></supportUrl>
+	<customProcName>false</customProcName>
+	<stayAlive>false</stayAlive>
+	<manifest></manifest>
+	<icon>maxwellicon.ico</icon>
+	<jre>
+	  <path></path>
+	  <minVersion>1.4.0</minVersion>
+	  <maxVersion>1.8.9</maxVersion>
+	  <jdkPreference>preferJre</jdkPreference>
+	</jre>
+	<splash>
+	  <file>maxwellsplash.bmp</file>
+	  <waitForWindow>true</waitForWindow>
+	  <timeout>5</timeout>
+	  <timeoutErr>false</timeoutErr>
+	</splash>
+	<versionInfo>
+	  <fileVersion>${working.long}</fileVersion>
+	  <txtFileVersion>${working.title}</txtFileVersion>
+	  <fileDescription>Total Heat Gain/Loss Calculator</fileDescription>
+	  <copyright>${working.year}</copyright>
+	  <productVersion>${working.long}</productVersion>
+	  <txtProductVersion>${working.title}</txtProductVersion>
+	  <productName>Maxwell</productName>
+	  <companyName>maxwell.googlecode.com</companyName>
+	  <internalName>Scoville</internalName>
+	  <originalFilename>Maxwell.exe</originalFilename>
+	</versionInfo>
+      </launch4jConfig>    
+    </echoxml>
+    <echo message="Done."/>
+  </target>
+  
 </project>
