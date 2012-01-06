@@ -48,6 +48,7 @@
   <!-- CLEANING TASK - "ant clean" -->
   <target name="clean">
     <delete dir="build"/>
+    <delete file="tools/launch4j/maxwell.xml"/>
     <delete>
       <fileset dir="." includes="Maxwell*.jar"/>
       <fileset dir="." includes="Maxwell*.exe"/>
@@ -149,6 +150,7 @@
 
   <target name="ship" depends="clean,compile,jar,prepl4j,launch4j">
     <delete dir="build/"/>
+    <delete file="tools/launch4j/maxwell.xml"/>
     <move file="Maxwell.jar" tofile="Maxwell${working.version}.jar"/>
     <move file="Maxwell.exe" tofile="Maxwell${working.version}.exe"/>
   </target>
