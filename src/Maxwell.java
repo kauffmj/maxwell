@@ -530,15 +530,22 @@ public class Maxwell extends javax.swing.JFrame {
     /* ZONE-SELECTION DROPDOWN BOX WAS TOUCHED/CHANGED */
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
 	if (refreshFlag == 1) {
-	    setBuildingData();
-	    setZoneData(activeZone);
-	    storeData();
-	    activeBuilding.calc();
-	    if (debugmode)
-		System.out.println("Zone changed to: " + 
-				   jComboBox1.getSelectedIndex());
-	    activeZone = jComboBox1.getSelectedIndex();
-	    refreshScreen();
+	    if (sanitize()) {
+		setBuildingData();
+		setZoneData(activeZone);
+		storeData();
+		activeBuilding.calc();
+		if (debugmode)
+		    System.out.println("Zone changed to: " + 
+				       jComboBox1.getSelectedIndex());
+		activeZone = jComboBox1.getSelectedIndex();
+		refreshScreen();
+	    }
+	    else {
+		refreshFlag = 0;
+		jComboBox1.setSelectedIndex(activeZone);
+		refreshFlag = 1;
+	    }
 	}
     }
 
@@ -547,45 +554,47 @@ public class Maxwell extends javax.swing.JFrame {
 	//GEN-FIRST:event_jButton1ActionPerformed
 	//calc current zone
 	setBuildingData();
-	setZoneData(activeZone);
-	storeData();
-	activeBuilding.calc();
-	int num = activeBuilding.numZones();
-	//prompt user for name of new zone
-	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	String newname=JOptionPane.showInputDialog(frame,"New Zone Name:",null);
-	int wasUsed = 0;
-	if (newname != null)
-	    for (int i=0; i<jComboBox1.getItemCount(); i++)
-		if (newname.equals(jComboBox1.getItemAt(i)))
-		    wasUsed++;
-	if (newname == null) {
-	    if (debugmode)
-		System.out.println("User canceled new zone");
-	}
-	else if (newname.equals("")) {
-	    if (debugmode)
-		System.out.println("User entered no name, no change made.");
-	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
-	    JOptionPane.showMessageDialog(frame2,"Name cannot be blank.",
-					  "Error",-1);	
-	}
-	else if (wasUsed >0 ){
-	    if (debugmode)
-		System.out.println("Entered existing name, no zone added.");
-	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
-	    JOptionPane.showMessageDialog(frame2,"Name in use already.",
-					  "Error",-1);	
-	}
-	else {
-	    //add a new zone to building
-	    activeBuilding.addZone(newname);
-	    //add a new entry to zone dropdown
-	    jComboBox1.addItem(newname);
-	    jComboBox1.setSelectedIndex(num);
-	    //refresh with info from new empty zone
-	    activeZone = num;
-	    refreshScreen();
+	if (sanitize()) {
+	    setZoneData(activeZone);
+	    storeData();
+	    activeBuilding.calc();
+	    int num = activeBuilding.numZones();
+	    //prompt user for name of new zone
+	    JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
+	    String newname=JOptionPane.showInputDialog(frame,"New Zone Name:",null);
+	    int wasUsed = 0;
+	    if (newname != null)
+		for (int i=0; i<jComboBox1.getItemCount(); i++)
+		    if (newname.equals(jComboBox1.getItemAt(i)))
+			wasUsed++;
+	    if (newname == null) {
+		if (debugmode)
+		    System.out.println("User canceled new zone");
+	    }
+	    else if (newname.equals("")) {
+		if (debugmode)
+		    System.out.println("User entered no name, no change made.");
+		JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+		JOptionPane.showMessageDialog(frame2,"Name cannot be blank.",
+					      "Error",-1);	
+	    }
+	    else if (wasUsed >0 ){
+		if (debugmode)
+		    System.out.println("Entered existing name, no zone added.");
+		JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+		JOptionPane.showMessageDialog(frame2,"Name in use already.",
+					      "Error",-1);	
+	    }
+	    else {
+		//add a new zone to building
+		activeBuilding.addZone(newname);
+		//add a new entry to zone dropdown
+		jComboBox1.addItem(newname);
+		jComboBox1.setSelectedIndex(num);
+		//refresh with info from new empty zone
+		activeZone = num;
+		refreshScreen();
+	    }
 	}
     }   //GEN-LAST:event_jButton1ActionPerformed
     
@@ -604,6 +613,7 @@ public class Maxwell extends javax.swing.JFrame {
 	if (debugmode)
 	    System.out.println("Active Zone: " + activeZone);
 	refreshScreen();
+	sanitize();
     }
 
     /* RENAME ZONE PRESSED */
@@ -647,20 +657,15 @@ public class Maxwell extends javax.swing.JFrame {
     /* CALCULATE BUTTON WAS PRESSED */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
 	//GEN-FIRST:event_jButton4ActionPerformed
-	storeData();
-	region = activeBuilding.getRegion();
-	setZoneData(activeZone);
-	activeBuilding.calc();
-	refreshScreen();
-	/*
-	jTextField17.setText("" + activeBuilding.getZoneData(activeZone,18,3));
-	jTextField18.setText("" + activeBuilding.getZoneData(activeZone,27,3));
-	jTextField20.setText("" + activeBuilding.getTotalGain());
-	jTextField19.setText("" + activeBuilding.getTotalLoss());
-	*/
-	// PRINT FOR DEBUGGING
-	if (debugmode)
-	    activeBuilding.output();
+	if (sanitize()) {
+	    storeData();
+	    region = activeBuilding.getRegion();
+	    setZoneData(activeZone);
+	    activeBuilding.calc();
+	    refreshScreen();
+	    if (debugmode)
+		activeBuilding.output();
+	}
     }   //GEN-LAST:event_jButton4ActionPerformed
 
     /* CLEAR BUTTON WAS PRESSED */
@@ -686,6 +691,7 @@ public class Maxwell extends javax.swing.JFrame {
 	jComboBox8.setSelectedIndex(0);
 	jComboBox9.setSelectedIndex(0);
 	jComboBox10.setSelectedIndex(0);
+	sanitize();
 	setZoneData(activeZone);     // NEWNEWNEW
 	activeBuilding.calc();       // NEWNEWNEW
 	refreshScreen();             // NEWNEWNEW
@@ -901,6 +907,7 @@ public class Maxwell extends javax.swing.JFrame {
 	jComboBox1.setSelectedIndex(activeZone);
 	refreshFlag=1;
 	refreshScreen();
+	sanitize();
 	if (debugmode)
 	    System.out.println("File -> New was clicked"); 
     }
@@ -928,6 +935,7 @@ public class Maxwell extends javax.swing.JFrame {
 	    jComboBox1.setSelectedIndex(activeZone);
 	    refreshFlag = 1;
 	    refreshScreen();
+	    sanitize();
 	}
 	if (rVal == JFileChooser.CANCEL_OPTION) {
 	    if (debugmode)
@@ -937,66 +945,70 @@ public class Maxwell extends javax.swing.JFrame {
     
     // "File -> Save" was clicked
     private void MenuSaveActionPerformed(java.awt.event.ActionEvent evt) {
-	setBuildingData();
-	setZoneData(activeZone);
-	JFileChooser c = new JFileChooser();
-	c.setAcceptAllFileFilterUsed(false);
-	c.addChoosableFileFilter(new xmlFilter());
-	int rVal = c.showSaveDialog(Maxwell.this);
-	if (rVal == JFileChooser.APPROVE_OPTION) {
-	    String filename = c.getSelectedFile().getAbsolutePath();
-	    if (filename.endsWith(".xml") || filename.endsWith(".XML")) {
+	if (sanitize()) {
+	    setBuildingData();
+	    setZoneData(activeZone);
+	    JFileChooser c = new JFileChooser();
+	    c.setAcceptAllFileFilterUsed(false);
+	    c.addChoosableFileFilter(new xmlFilter());
+	    int rVal = c.showSaveDialog(Maxwell.this);
+	    if (rVal == JFileChooser.APPROVE_OPTION) {
+		String filename = c.getSelectedFile().getAbsolutePath();
+		if (filename.endsWith(".xml") || filename.endsWith(".XML")) {
+		    if (debugmode)
+			System.out.println("User specified XML suffix.");
+		}
+		else {
+		    if (debugmode)
+			System.out.println("User did not specify XML Suffix.");
+		    filename = filename + ".xml";
+		}
 		if (debugmode)
-		    System.out.println("User specified XML suffix.");
+		    System.out.println("Approve pressed, loading: " + filename); 
+		serialize(activeBuilding,filename);
 	    }
-	    else {
+	    if (rVal == JFileChooser.CANCEL_OPTION) {
 		if (debugmode)
-		    System.out.println("User did not specify XML Suffix.");
-		filename = filename + ".xml";
+		    System.out.println("Cancel pressed.  Saving of file stopped");
 	    }
-	    if (debugmode)
-		System.out.println("Approve pressed, loading: " + filename); 
-	    serialize(activeBuilding,filename);
-	}
-	if (rVal == JFileChooser.CANCEL_OPTION) {
-	    if (debugmode)
-		System.out.println("Cancel pressed.  Saving of file stopped");
 	}
 	if (debugmode)
 	    System.out.println("File -> Save was clicked"); 
-    }
-    
+    }    
+
     // "File -> Print" was clicked
     private void MenuPrintActionPerformed(java.awt.event.ActionEvent evt) {
 	if (debugmode)
-	    System.out.println("File -> Print was clicked"); 
-	setBuildingData();
-	setZoneData(activeZone);
-	JFileChooser c = new JFileChooser();
-	c.setAcceptAllFileFilterUsed(false);
-	c.addChoosableFileFilter(new pdfFilter());
-	int rVal = c.showSaveDialog(Maxwell.this);
-	if (rVal == JFileChooser.APPROVE_OPTION) {
-	    String filename = c.getSelectedFile().getAbsolutePath();
-	    if (filename.endsWith(".pdf") || filename.endsWith(".PDF")) {
+	    System.out.println("File -> Print was clicked");
+	if (sanitize()) { 
+	    setBuildingData();
+	    setZoneData(activeZone);
+	    JFileChooser c = new JFileChooser();
+	    c.setAcceptAllFileFilterUsed(false);
+	    c.addChoosableFileFilter(new pdfFilter());
+	    int rVal = c.showSaveDialog(Maxwell.this);
+	    if (rVal == JFileChooser.APPROVE_OPTION) {
+		String filename = c.getSelectedFile().getAbsolutePath();
+		if (filename.endsWith(".pdf") || filename.endsWith(".PDF")) {
+		    if (debugmode)
+			System.out.println("User specified PDF suffix.");
+		}
+		else {
+		    if (debugmode)
+			System.out.println("User did not specify PDF Suffix.");
+		    filename = filename + ".pdf";
+		}
 		if (debugmode)
-		    System.out.println("User specified PDF suffix.");
+		    System.out.println("Approve was pressed, saving: " + filename);
+		FirstPdf.go(activeBuilding, filename);
 	    }
-	    else {
+	    if (rVal == JFileChooser.CANCEL_OPTION) {
 		if (debugmode)
-		    System.out.println("User did not specify PDF Suffix.");
-		filename = filename + ".pdf";
+		    System.out.println("Cancel pressed.  Saving of file stopped");
 	    }
-	    if (debugmode)
-		System.out.println("Approve was pressed, saving: " + filename);
-	    FirstPdf.go(activeBuilding, filename);
 	}
-	if (rVal == JFileChooser.CANCEL_OPTION) {
-	    if (debugmode)
-		System.out.println("Cancel pressed.  Saving of file stopped");
-	}
-    }
-    
+    }	
+
     // "File -> Exit" was clicked
     private void MenuExitActionPerformed(java.awt.event.ActionEvent evt) {
 	if (debugmode)
@@ -1042,7 +1054,78 @@ public class Maxwell extends javax.swing.JFrame {
 	    System.out.println("Testing!");
     }
 
-    /***************************************************************************
+
+    /**************************************************************************
+     * INPUT SANITIZER                                                        *
+     **************************************************************************/
+    public boolean sanitize() {
+	float temp;
+	int errorcount = 0;
+	Color oldcolor = jLabel1.getForeground();
+	try { temp = Float.parseFloat(jTextField5.getText());  // GrossWall
+	    jLabel9.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel9.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField6.getText());  // NorthWindow
+	    jLabel10.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel10.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField7.getText());  // SouthWindow
+	    jLabel11.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel11.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField8.getText());  // E/W-Window
+	    jLabel12.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel12.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField9.getText());  // Skylight
+	    jLabel13.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel13.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField10.getText());  // Door
+	    jLabel14.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel14.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField11.getText());  // Ceiling
+	    jLabel15.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel15.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField12.getText());  // Floor
+	    jLabel16.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel16.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField13.getText());  // InfilArea
+	    jLabel17.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel17.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField14.getText());  // InfilHeight
+	    jLabel18.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel18.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField15.getText());  // People
+	    jLabel19.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel19.setForeground(Color.RED); }
+	try { temp = Float.parseFloat(jTextField16.getText());  // Appliance
+	    jLabel20.setForeground(oldcolor);
+	} catch (NumberFormatException e) { errorcount++;
+	    jLabel20.setForeground(Color.RED); }
+	
+	if (errorcount == 0)
+	    return true;
+	else {
+	    if (debugmode)
+		System.out.println("Input Sanitizer failed.");
+	    JPanel frame2 = new JPanel(new GridLayout(0,4, 10, 10));
+	    JOptionPane.showMessageDialog(frame2,
+					  "Please fix non-numeric input.",
+					  "Error",-1);
+	    return false;
+	}
+    }
+ 
+
+   /***************************************************************************
      * GLOBALLY ACCESIBLE VARIABLES/OBJECTS
      **************************************************************************/
     private static Region region;   // the Region object of activeBuilding
