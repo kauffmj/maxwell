@@ -19,10 +19,6 @@ public class Maxwell extends javax.swing.JFrame {
         initComponents();
     }
 
-    /** Suppress the deprecation warnings */
-    @SuppressWarnings("checked")
-	
-	
     /** Initialize all of the GUI Components */
     private void initComponents() {
 	super.setTitle("Maxwell - Calculator");
