@@ -130,6 +130,9 @@ public class FirstPdf {
     private static void addZones(Document doc, Building active)
 	throws DocumentException {
 	int zone=0;
+    /** FIX FOR INDEX OUT OF BOUNDS EXCEPTION EXPERIENCED WHEN TRYING TO PRINT
+        MORE THAN ONCE IN ONE PROGRAM EXECUTION **/
+    z = 0;
 		
 	Anchor anchor = new Anchor("Zone" + zone, titleFont);
 	anchor.setName("Heat Loss and Gain Calculator");
