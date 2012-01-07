@@ -2,8 +2,8 @@ Maxwell: Heat Gain and Loss Calculator
 
 To compile Maxwell:
   'ant clean compile'
-To jar Maxwell:
-  'ant jar jar-all'
-To package Maxwell:
-  'ant lauch4j'
+To run Maxwell:
+  'ant run'
+To package Maxwell for shipping:
+  'ant ship'
 

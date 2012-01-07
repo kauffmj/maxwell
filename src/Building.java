@@ -56,12 +56,12 @@ public class Building {
     // Constructors
     public Building() {
 	setRegion(0);
-	zone = new ArrayList(1);
+	zone = new ArrayList<Zone>(1);
 	zone.add(new Zone("Untitled Zone"));
     }
     public Building(int size) {
 	setRegion(0);
-	zone = new ArrayList(size);
+	zone = new ArrayList<Zone>(size);
 	for (int i=0; i<size; i++)
 	    zone.add(new Zone("Untitled Zone"));
     }
