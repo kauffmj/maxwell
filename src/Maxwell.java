@@ -655,10 +655,13 @@ public class Maxwell extends javax.swing.JFrame {
 	region = activeBuilding.getRegion();
 	setZoneData(activeZone);
 	activeBuilding.calc();
+	refreshScreen();
+	/*
 	jTextField17.setText("" + activeBuilding.getZoneData(activeZone,18,3));
 	jTextField18.setText("" + activeBuilding.getZoneData(activeZone,27,3));
 	jTextField20.setText("" + activeBuilding.getTotalGain());
 	jTextField19.setText("" + activeBuilding.getTotalLoss());
+	*/
 	// PRINT FOR DEBUGGING
 	if (debugmode)
 	    activeBuilding.output();
@@ -719,11 +722,13 @@ public class Maxwell extends javax.swing.JFrame {
 	jTextField14.setText("" + activeBuilding.getZoneData(activeZone,9,1));
 	jTextField15.setText("" + activeBuilding.getZoneData(activeZone,10,0));
 	jTextField16.setText("" + activeBuilding.getZoneData(activeZone,11,0));
-	jTextField17.setText("" + activeBuilding.getZoneData(activeZone,18,3));
-	jTextField18.setText("" + activeBuilding.getZoneData(activeZone,27,3));
+	jTextField17.setText((int)activeBuilding.getZoneData(activeZone,18,3) 
+			     + " BTU");
+	jTextField18.setText((int)activeBuilding.getZoneData(activeZone,27,3) 
+			     + " BTU");
 	// refresh building totals
-	jTextField20.setText("" + activeBuilding.getTotalGain());
-	jTextField19.setText("" + activeBuilding.getTotalLoss());
+	jTextField20.setText((int)activeBuilding.getTotalGain() + " BTU");
+	jTextField19.setText((int)activeBuilding.getTotalLoss() + " BTU");
 	// refresh dropdowns
 	int temp[] = activeBuilding.getZoneDropdowns(activeZone);
 	jComboBox3.setSelectedIndex(temp[0]);
@@ -1007,7 +1012,7 @@ public class Maxwell extends javax.swing.JFrame {
 	if (debugmode)
 	    System.out.println("Help -> About was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"Maxwell is an application to calculate the heat gain and heat loss of \na building.  The information can be entered on a zone by zone or \nroom by room basis, or as a whole building.\n\nThis application was created by the CS290 Fall 2011 Software \nDevelopment class of Allegheny College. It is available for \ndownload under the New BSD License.  \nSpecial thanks to Tom Mattis for being our customer.\n\nCopyright (c) 2012, Allegheny College\nAll rights reserved.", "About",-1);	
+	JOptionPane.showMessageDialog(frame,"Maxwell is an application to calculate the heat gain and heat loss of \na building.  The information can be entered on a zone by zone or \nroom by room basis, or as a whole building.\n\nThis application was created by the CS290 Fall 2011 Software \nDevelopment class of Allegheny College. It is available for \ndownload under the New BSD License.  \nSpecial thanks to Tom Mattis for being our first customer.\n\nCopyright (c) 2012, Allegheny College\nAll rights reserved.", "About",-1);	
     }
     
     // "Help -> Documentation" was clicked
@@ -1016,7 +1021,7 @@ public class Maxwell extends javax.swing.JFrame {
 	if (debugmode)
 	    System.out.println("Help -> Documentation was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"The Calculate button updates the Zone Gain, Zone Loss, Total Gain and Total loss fields. \n Updating the input fields and pressing Calculate again will update the gain and loss \nfields based on the new inputs.\n\nZONE FUNCTIONS\n-Rename the current zone by clicking Rename and entering the name you wish for the zone.\n-Add a new zone by clicking the Add New button and entering the name for the new zone.\n-Clear the contents of a zone's input fields by clicking the Clear Zone button. This will not \ndelete the entire zone.  It will only clear its contents.\n-Delete a zone by clicking the Delete button.\n\nBUILDING FUNCTIONS\n-Create a new job by clicking File->New.  A new blank job will appear.\n-Open an existing builidng or job by clicking File->Open and navigating to the .xml file that \nyou wish to open.\n-Save the current job by clicking File->Save and navigating to the directory where the job \nshould be saved.  Type a name for the file.\n-To exit the program, click File->Exit or click the X button as you would any other window.", 
+	JOptionPane.showMessageDialog(frame,"The Calculate button updates the Zone Gain, Zone Loss, Total Gain and Total loss fields. \n Updating the input fields and pressing Calculate again will update the gain and loss \nfields based on the new inputs.\n\nUNITS\n-All areas are presumed to be in sq.ft.\n-Output values are in BTUs.\n\nZONE FUNCTIONS\n-Rename the current zone by clicking Rename and entering the name you wish for the zone.\n-Add a new zone by clicking the Add New button and entering the name for the new zone.\n-Clear the contents of a zone's input fields by clicking the Clear Zone button. This will not \ndelete the entire zone.  It will only clear its contents.\n-Delete a zone by clicking the Delete button.\n\nBUILDING FUNCTIONS\n-Create a new job by clicking File->New.  A new blank job will appear.\n-Open an existing builidng or job by clicking File->Open and navigating to the .xml file that \nyou wish to open.\n-Save the current job by clicking File->Save and navigating to the directory where the job \nshould be saved.  Type a name for the file.\n-To exit the program, click File->Exit or click the X button as you would any other window.", 
 				      "Documentation",-1);	
     }
 
