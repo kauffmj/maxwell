@@ -933,9 +933,19 @@ public class Maxwell extends javax.swing.JFrame {
 	if (debugmode)
 	    System.out.println("File -> Open was clicked");
 	JFileChooser c = new JFileChooser();
+	if (recentdir != null) {
+	    if (debugmode)
+		System.out.println("Opening from recent directory.");
+	    c.setCurrentDirectory(recentdir);
+	}
+	else {
+	    if (debugmode)
+		System.out.println("Opening from default directory.");
+	}
 	c.setAcceptAllFileFilterUsed(false);
 	c.addChoosableFileFilter(new xmlFilter());
 	int rVal = c.showOpenDialog(Maxwell.this);
+	recentdir = c.getCurrentDirectory();
 	if (rVal == JFileChooser.APPROVE_OPTION) {
 	    if (debugmode)
 		System.out.println("Approve was pressed, loading:\n" +
@@ -965,9 +975,19 @@ public class Maxwell extends javax.swing.JFrame {
 	    setBuildingData();
 	    setZoneData(activeZone);
 	    JFileChooser c = new JFileChooser();
+	    if (recentdir != null) {
+		if (debugmode)
+		    System.out.println("Beginning save in recent directory.");
+		c.setCurrentDirectory(recentdir);
+	    }
+	    else {
+		if (debugmode)
+		    System.out.println("Beginning save in default directory.");
+	    }
 	    c.setAcceptAllFileFilterUsed(false);
 	    c.addChoosableFileFilter(new xmlFilter());
 	    int rVal = c.showSaveDialog(Maxwell.this);
+	    recentdir = c.getCurrentDirectory();
 	    if (rVal == JFileChooser.APPROVE_OPTION) {
 		String filename = c.getSelectedFile().getAbsolutePath();
 		if (filename.endsWith(".xml") || filename.endsWith(".XML")) {
@@ -1000,9 +1020,19 @@ public class Maxwell extends javax.swing.JFrame {
 	    setBuildingData();
 	    setZoneData(activeZone);
 	    JFileChooser c = new JFileChooser();
+	    if (recentdir != null) {
+		if (debugmode)
+		    System.out.println("Beginning print in recent directory.");
+		c.setCurrentDirectory(recentdir);
+	    }
+	    else {
+		if (debugmode)
+		    System.out.println("Beginning print at default directory.");
+	    }
 	    c.setAcceptAllFileFilterUsed(false);
 	    c.addChoosableFileFilter(new pdfFilter());
 	    int rVal = c.showSaveDialog(Maxwell.this);
+	    recentdir = c.getCurrentDirectory();
 	    if (rVal == JFileChooser.APPROVE_OPTION) {
 		String filename = c.getSelectedFile().getAbsolutePath();
 		if (filename.endsWith(".pdf") || filename.endsWith(".PDF")) {
@@ -1036,7 +1066,7 @@ public class Maxwell extends javax.swing.JFrame {
 	if (debugmode)
 	    System.out.println("Help -> About was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"Maxwell is an application to calculate the heat gain and heat loss of \na building.  The information can be entered on a zone by zone or \nroom by room basis, or as a whole building.\n\nThis application was created by the CS290 Fall 2011 Software \nDevelopment class of Allegheny College. It is available for \ndownload under the New BSD License.  \nSpecial thanks to Tom Mattis for being our first customer.\n\nCopyright (c) 2012, Allegheny College\nAll rights reserved.", "About",-1);	
+	JOptionPane.showMessageDialog(frame,"Maxwell is an application to calculate the heat gain and heat loss of \na building.  The information can be entered on a zone-by-zone or \nroom-by-room basis, or as a whole building.\n\nThis application was created by the CS290 Fall 2011 Software \nDevelopment class of Allegheny College. It is available for \ndownload under the New BSD License.  \nSpecial thanks to Tom Mattis for being our first customer.\n\nCopyright (c) 2012, Allegheny College\nAll rights reserved.", "About",-1);	
     }
 
     // "Help -> Inputs" was clicked
@@ -1053,7 +1083,7 @@ public class Maxwell extends javax.swing.JFrame {
 	if (debugmode)
 	    System.out.println("Help -> Documentation was clicked");
 	JPanel frame = new JPanel(new GridLayout(0,4, 10, 10));
-	JOptionPane.showMessageDialog(frame,"The Calculate button updates the Zone Gain, Zone Loss, Total Gain and Total loss fields. \n Updating the input fields and pressing Calculate again will update the gain and loss \nfields based on the new inputs.\n\nUNITS\n-All areas are presumed to be in sq.ft.\n-Output values are in BTUs.\n\nZONE FUNCTIONS\n-Rename the current zone by clicking Rename and entering the name you wish for the zone.\n-Add a new zone by clicking the Add New button and entering the name for the new zone.\n-Clear the contents of a zone's input fields by clicking the Clear Zone button. This will not \ndelete the entire zone.  It will only clear its contents.\n-Delete a zone by clicking the Delete button.\n\nBUILDING FUNCTIONS\n-Create a new job by clicking File->New.  A new blank job will appear.\n-Open an existing builidng or job by clicking File->Open and navigating to the .xml file that \nyou wish to open.\n-Save the current job by clicking File->Save and navigating to the directory where the job \nshould be saved.  Type a name for the file.\n-To exit the program, click File->Exit or click the X button as you would any other window.", 
+	JOptionPane.showMessageDialog(frame,"The Calculate button updates the Zone Gain, Zone Loss, Total Gain and Total Loss fields. \nUpdating the input fields and pressing Calculate again will update the gain and loss \nfields based on the new inputs.\n\nUNITS\n-All areas are presumed to be in sq.ft.\n-Output values are in BTUs.\n\nZONE FUNCTIONS\n-Rename the current zone by clicking Rename and entering the name you wish for the zone.\n-Add a new zone by clicking the Add New button and entering the name for the new zone.\n-Clear the contents of a zone's input fields by clicking the Clear Zone button. This will not \ndelete the entire zone.  It will only clear its contents.\n-Delete a zone by clicking the Delete button.\n\nBUILDING FUNCTIONS\n-Create a new job by clicking File->New.  A new blank job will appear.\n-Open an existing building or job by clicking File->Open and navigating to the .xml file that \nyou wish to open.\n-Save the current job by clicking File->Save and navigating to the directory where the job \nshould be saved.  Type a name for the file.\n-To exit the program, click File->Exit or click the X button as you would any other window.", 
 				      "Documentation",-1);	
     }
 
@@ -1173,6 +1203,7 @@ public class Maxwell extends javax.swing.JFrame {
     private static int activeZone; // the index of the current zone
     private static int refreshFlag = 1; // controls whether/not refreshing works
     private static boolean debugmode = false;
+    private static File recentdir;
     // ALL OF THE LABELS/BUTTONS/DROPDOWNS/ETC
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
